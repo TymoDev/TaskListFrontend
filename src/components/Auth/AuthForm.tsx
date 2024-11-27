@@ -1,9 +1,10 @@
 import { useState } from "react";
 import AuthBar from "./AuthBar";
+import ErrorModal from "../../ErrorModals/RegisterLoginErrorModal"; // Імпортуємо ErrorModal
 
 interface AuthFormProps {
-  onSubmitLogin: (username: string,email: string, password: string) => Promise<void>;
-  onSubmitRegister: (username: string, email: string, password: string) => Promise<void>;
+  onSubmitLogin: (username: string, email: string, password: string) => Promise<{ status: number; error?: string }>;
+  onSubmitRegister: (username: string, email: string, password: string) => Promise<{ status: number; error?: string }>;
 }
 
 const AuthForm = ({ onSubmitLogin, onSubmitRegister }: AuthFormProps) => {
@@ -12,20 +13,31 @@ const AuthForm = ({ onSubmitLogin, onSubmitRegister }: AuthFormProps) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null); 
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (isLogin) {
-      onSubmitLogin(username, email, password);
-    } else {
-      onSubmitRegister(username, email, password);
-    }
+    try {
+      let result;
+      if (isLogin) {
+        result = await onSubmitLogin(username, email, password);
+      } else {
+        result = await onSubmitRegister(username, email, password);
+      }
 
-    setIsModalOpen(false);
-    setUsername("");
-    setEmail("");
-    setPassword("");
+      if (result.status !== 200) {
+        throw new Error(result.error || "An unexpected error occurred.");
+      }
+
+      setIsModalOpen(false);
+      setUsername("");
+      setEmail("");
+      setPassword("");
+    } catch (error: any) {
+      setIsModalOpen(false); 
+      setErrorMessage(error.message || "An unexpected error occurred."); 
+    }
   };
 
   return (
@@ -88,6 +100,12 @@ const AuthForm = ({ onSubmitLogin, onSubmitRegister }: AuthFormProps) => {
             </button>
           </div>
         </div>
+      )}
+      {errorMessage && (
+        <ErrorModal
+          message={errorMessage}
+          onClose={() => setErrorMessage(null)} 
+        />
       )}
     </div>
   );
