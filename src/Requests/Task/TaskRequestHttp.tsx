@@ -16,13 +16,16 @@ export const fetchTasks = async (): Promise<Task[]> => {
 
   return backendTasks.map((task: any) => ({
     id: task.id,
-    name: task.taskName, 
-    done: task.taskStatus, 
+    name: task.taskName,
+    done: task.taskStatus,
   }));
 };
 
-
-export const createTask = async (task: { guid:string, taskName: string; taskStatus: string }): Promise<Task> => {
+export const createTask = async (task: {
+  guid: string;
+  taskName: string;
+  taskStatus: string;
+}): Promise<Task> => {
   const response = await fetch(API_URL, {
     method: "POST",
     headers: {
@@ -37,7 +40,6 @@ export const createTask = async (task: { guid:string, taskName: string; taskStat
   return response.json();
 };
 
-
 export const updateTask = async (
   id: string,
   name: string,
@@ -49,8 +51,8 @@ export const updateTask = async (
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      taskName: name, 
-      taskStatus: updatedData.done, 
+      taskName: name,
+      taskStatus: updatedData.done,
     }),
   });
 
@@ -60,8 +62,6 @@ export const updateTask = async (
 
   return response.json(); // Повертаємо оновлену задачу
 };
-
-
 
 export const deleteTask = async (id: string): Promise<void> => {
   const response = await fetch(`${API_URL}/${id}`, {
