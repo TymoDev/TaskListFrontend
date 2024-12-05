@@ -6,17 +6,14 @@ import {
   deleteTask,
 } from "../Requests/Task/TaskRequestHttp";
 import { v4 as uuidv4 } from "uuid";
+import {Task} from "../Models/TasksModel"
 
-export interface Task {
-  name: string;
-  done: string;
-  id: string;
-}
 
 export const useTasks = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   // Fetch tasks
   useEffect(() => {
@@ -24,7 +21,9 @@ export const useTasks = () => {
       setLoading(true);
       try {
         const data = await fetchTasks();
+        setIsAuthenticated(true);
         setTasks(data);
+        
       } catch (err: any) {
         setError(err.message);
       } finally {
@@ -45,6 +44,7 @@ export const useTasks = () => {
       await createTask({ guid, taskName: value, taskStatus: "pending" });
       const updatedTasks = await fetchTasks();
       setTasks(updatedTasks);
+      setIsAuthenticated(true);
     } catch (err: any) {
       setError(err.message);
     }
@@ -58,7 +58,7 @@ export const useTasks = () => {
     try {
       const newStatus = done === "done" ? "pending" : "done";
       await updateTask(id, taskToUpdate.name, { done: newStatus });
-
+      setIsAuthenticated(true);
       setTasks((prevTasks) =>
         prevTasks.map((task) =>
           task.id === id ? { ...task, done: newStatus } : task
@@ -73,13 +73,14 @@ export const useTasks = () => {
   const deleteTaskById = async (id: string) => {
     try {
       await deleteTask(id);
+      setIsAuthenticated(true);
       setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
     } catch (err: any) {
       setError(err.message);
     }
   };
 
-  return { tasks, loading, error, addTask, toggleTaskStatus, deleteTaskById };
+  return { tasks, loading, error, isAuthenticated, addTask, toggleTaskStatus, deleteTaskById,setIsAuthenticated };
 };
 
 export default useTasks;

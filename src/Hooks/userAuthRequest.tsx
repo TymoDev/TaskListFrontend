@@ -2,12 +2,11 @@ import { loginUser, registerUser } from "../Requests/User/UserRequest";
 
 export const userAuth = () => {
   const userLogginHook = async (
-    username: string,
     email: string,
     password: string
   ): Promise<{ status: number; error?: string }> => {
     try {
-      const result = await loginUser(username, email, password);
+      const result = await loginUser(email, password);
       return result;
     } catch (error: any) {
       return {

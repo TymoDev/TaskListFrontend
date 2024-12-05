@@ -1,13 +1,13 @@
+import {Task} from "../../Models/TasksModel"
 // api/tasks.ts
-import { Task } from "../../App";
+const API_URL = "http://localhost:7072/api/Task";
 
-const API_URL = "https://localhost:7072/api/Task";
 
 export const fetchTasks = async (): Promise<Task[]> => {
-  const response = await fetch(API_URL, {
+  const response = await fetch(`${API_URL}/user`, {
     method: "GET",
+    credentials: "include",
   });
-
   if (!response.ok) {
     throw new Error(`Failed to fetch tasks: ${response.statusText}`);
   }
@@ -32,6 +32,7 @@ export const createTask = async (task: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(task),
+    credentials: "include",
   });
 
   if (!response.ok) {
@@ -54,18 +55,20 @@ export const updateTask = async (
       taskName: name,
       taskStatus: updatedData.done,
     }),
+    credentials: "include",
   });
 
   if (!response.ok) {
     throw new Error("Failed to update task");
   }
 
-  return response.json(); // Повертаємо оновлену задачу
+  return response.json(); 
 };
 
 export const deleteTask = async (id: string): Promise<void> => {
   const response = await fetch(`${API_URL}/${id}`, {
     method: "DELETE",
+    credentials: "include",
   });
   if (!response.ok) {
     throw new Error("Failed to delete task");
