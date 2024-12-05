@@ -1,7 +1,6 @@
-const API_URL = "https://localhost:7072/api/auth/UserAuth";
+const API_URL = "http://localhost:7072/api/auth/UserAuth";
 
 export const loginUser = async (
-  username: string,
   email: string,
   password: string
 ): Promise<{ status: number; error?: string }> => {
@@ -11,7 +10,8 @@ export const loginUser = async (
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username, email, password }),
+      body: JSON.stringify({email, password }),
+      credentials: "include"
     });
 
     if (!response.ok) {
@@ -39,6 +39,7 @@ export const registerUser = async (
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ username, email, password }),
+      credentials: "include"
     });
 
     if (!response.ok) {
