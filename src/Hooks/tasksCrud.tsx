@@ -13,15 +13,13 @@ export const useTasks = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   // Fetch tasks
   useEffect(() => {
     const loadTasks = async () => {
       setLoading(true);
       try {
-        const data = await fetchTasks();
-        setIsAuthenticated(true);
+        const data = await fetchTasks();       
         setTasks(data);
         
       } catch (err: any) {
@@ -44,7 +42,6 @@ export const useTasks = () => {
       await createTask({ guid, taskName: value, taskStatus: "pending" });
       const updatedTasks = await fetchTasks();
       setTasks(updatedTasks);
-      setIsAuthenticated(true);
     } catch (err: any) {
       setError(err.message);
     }
@@ -58,7 +55,6 @@ export const useTasks = () => {
     try {
       const newStatus = done === "done" ? "pending" : "done";
       await updateTask(id, taskToUpdate.name, { done: newStatus });
-      setIsAuthenticated(true);
       setTasks((prevTasks) =>
         prevTasks.map((task) =>
           task.id === id ? { ...task, done: newStatus } : task
@@ -73,14 +69,13 @@ export const useTasks = () => {
   const deleteTaskById = async (id: string) => {
     try {
       await deleteTask(id);
-      setIsAuthenticated(true);
       setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
     } catch (err: any) {
       setError(err.message);
     }
   };
 
-  return { tasks, loading, error, isAuthenticated, addTask, toggleTaskStatus, deleteTaskById,setIsAuthenticated };
+  return { tasks, loading, error, addTask, toggleTaskStatus, deleteTaskById};
 };
 
 export default useTasks;

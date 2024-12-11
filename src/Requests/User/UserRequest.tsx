@@ -1,7 +1,6 @@
 const API_URL = "http://localhost:7072/api/auth/UserAuth";
-
 export const loginUser = async (
-  email: string,
+  Login: string,
   password: string
 ): Promise<{ status: number; error?: string }> => {
   try {
@@ -10,8 +9,8 @@ export const loginUser = async (
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({email, password }),
-      credentials: "include"
+      body: JSON.stringify({ login: Login, password }),
+      credentials: "include",
     });
 
     if (!response.ok) {
@@ -23,7 +22,10 @@ export const loginUser = async (
     return { status: response.status };
   } catch (error: any) {
     console.error("Login error:", error.message);
-    return { status: 500, error: error.message || "An error occurred during login." };
+    return {
+      status: 500,
+      error: error.message || "An error occurred during login.",
+    };
   }
 };
 
@@ -39,7 +41,7 @@ export const registerUser = async (
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ username, email, password }),
-      credentials: "include"
+      credentials: "include",
     });
 
     if (!response.ok) {
@@ -48,10 +50,33 @@ export const registerUser = async (
       return { status: response.status, error: errorMessage };
     }
 
-    return { status: response.status }; 
+    return { status: response.status };
   } catch (error: any) {
     console.error("Registration error:", error.message);
-    return { status: 500, error: error.message || "An error occurred during registration." };
+    return {
+      status: 500,
+      error: error.message || "An error occurred during registration.",
+    };
   }
 };
 
+export const tryAuthUser = async () => {
+  try {
+    const response = await fetch(`${API_URL}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      return { status: response.status, success: false };
+    }
+
+    return { status: response.status, success: true };
+  } catch (error) {
+    console.error("Error:", error);
+    return { status: 500, success: false };
+  }
+};

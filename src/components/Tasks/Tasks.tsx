@@ -1,5 +1,5 @@
 import TaskItem from "./TaskItem";
-import { Task } from "../../App";
+import { Task } from "../../Models/TasksModel";
 
 const Tasks = ({
   tasks,
