@@ -1,4 +1,4 @@
-import { Task } from "../../App";
+import { Task } from "../../Models/TasksModel";
 import SummaryItem from "./SummaryItem";
 
 const Summary = ({ tasks }: { tasks: Task[] }) => {

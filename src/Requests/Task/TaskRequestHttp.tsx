@@ -1,7 +1,6 @@
-import {Task} from "../../Models/TasksModel"
+import { Task } from "../../Models/TasksModel";
 // api/tasks.ts
 const API_URL = "http://localhost:7072/api/Task";
-
 
 export const fetchTasks = async (): Promise<Task[]> => {
   const response = await fetch(`${API_URL}/user`, {
@@ -62,7 +61,7 @@ export const updateTask = async (
     throw new Error("Failed to update task");
   }
 
-  return response.json(); 
+  return response.json();
 };
 
 export const deleteTask = async (id: string): Promise<void> => {

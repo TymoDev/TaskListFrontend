@@ -1,7 +1,8 @@
 const API_URL = "http://localhost:7072/api/auth/UserAuth";
 
-export const loginUser = async (
-  email: string,
+//these parameters must be of the same name as the backend accepts, so that it can deserialize it properly
+export const loginUser = async ( 
+  login: string,
   password: string
 ): Promise<{ status: number; error?: string }> => {
   try {
@@ -10,7 +11,7 @@ export const loginUser = async (
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({email, password }),
+      body: JSON.stringify({ login, password }),
       credentials: "include"
     });
 

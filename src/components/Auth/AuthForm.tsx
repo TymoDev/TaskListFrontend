@@ -1,4 +1,6 @@
-import { useState } from "react";
+/*import { useState } from "react";
+import LoginForm from "./LoginForm"
+import RegisterForm from "./RegisterForm"
 
 interface AuthFormProps {
   onSubmitLogin: (email: string, password: string) => Promise<{ status: number; error?: string }>;
@@ -46,7 +48,6 @@ const AuthForm = ({ onSubmitLogin, onSubmitRegister }: AuthFormProps) => {
         throw new Error(result.error || "An unexpected error occurred.");
       }
 
-
       setUsername("");
       setEmail("");
       setPassword("");
@@ -58,120 +59,42 @@ const AuthForm = ({ onSubmitLogin, onSubmitRegister }: AuthFormProps) => {
     }
   };
 
+  const forms = {
+    login: (
+      <>
+      <LoginForm
+      email={email}
+      passwordProp={password}
+      setEmail={setEmail}
+      setPassword={setPassword}
+      handleLoginSubmit={handleLoginSubmit}
+      >
+      </LoginForm>
+      </>
+    ),
+    register: (
+      <>
+        <RegisterForm
+        username={username}
+        email={email}
+        passwordProp={password}
+        repeatPassword={repeatPassword}
+        handleRegisterSubmit={handleRegisterSubmit}
+        setUsername={setUsername}
+        setEmail={setEmail}
+        setPassword={setPassword}
+        setRepeatPassword={setRepeatPassword}
+        >
+          
+        </RegisterForm>
+      </>
+    ),
+  };
+
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-sm">
-        {isLogin ? (
-          <>
-            <h2 className="text-2xl font-bold mb-4 text-center">Log in to your account</h2>
-            <form onSubmit={handleLoginSubmit}>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                Username or email
-              </label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-2 border rounded-md mb-4"
-                required
-              />
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                Password
-              </label>
-              <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full p-2 border rounded-md mb-4"
-                required
-              />
-              <button
-                type="submit"
-                className="bg-red-500 text-white py-2 px-4 w-full rounded-md hover:bg-red-600"
-              >
-                Log in
-              </button>
-            </form>
-            <div className="text-sm text-center mt-4">
-              <button
-                onClick={() => setIsLogin(false)}
-                className="text-blue-600 hover:underline mr-2"
-              >
-                Create account
-              </button>
-              ·
-              <a href="#" className="text-blue-600 hover:underline ml-2">
-                Forgot password
-              </a>
-            </div>
-          </>
-        ) : (
-          <>
-            <h2 className="text-2xl font-bold mb-4 text-center">Create your account</h2>
-            <form onSubmit={handleRegisterSubmit}>
-              <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
-                Username
-              </label>
-              <input
-                type="text"
-                id="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                className="w-full p-2 border rounded-md mb-4"
-                required
-              />
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                Your email address
-              </label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-2 border rounded-md mb-4"
-                required
-              />
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                Password
-              </label>
-              <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full p-2 border rounded-md mb-4"
-                required
-              />
-              <label htmlFor="repeatPassword" className="block text-sm font-medium text-gray-700 mb-1">
-                Repeat password
-              </label>
-              <input
-                type="password"
-                id="repeatPassword"
-                value={repeatPassword}
-                onChange={(e) => setRepeatPassword(e.target.value)}
-                className="w-full p-2 border rounded-md mb-4"
-                required
-              />
-              <button
-                type="submit"
-                className="bg-purple-500 text-white py-2 px-4 w-full rounded-md hover:bg-purple-600"
-              >
-                Register
-              </button>
-            </form>
-            <div className="text-sm text-center mt-4">
-              <button
-                onClick={() => setIsLogin(true)}
-                className="text-blue-600 hover:underline"
-              >
-                Back to login
-              </button>
-            </div>
-          </>
-        )}
+        {forms[isLogin ? "login" : "register"]}
         {errorMessage && (
           <div className="text-red-500 text-sm mt-4">
             {errorMessage}
@@ -183,3 +106,4 @@ const AuthForm = ({ onSubmitLogin, onSubmitRegister }: AuthFormProps) => {
 };
 
 export default AuthForm;
+*/
