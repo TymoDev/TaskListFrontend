@@ -62,7 +62,7 @@ const LoginForm = ({
           Create account
         </button>
         <button
-          onClick={() => {}}
+          onClick={() => {navigate("/password/reset")}}
           className="text-blue-600 hover:underline mr-2"
         >
           Forgot password

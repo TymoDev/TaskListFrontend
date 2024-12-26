@@ -1,4 +1,4 @@
-import { loginUser, registerUser } from "../Requests/User/UserRequest";
+import { loginUser, registerUser } from "../Requests/User/UserRequestAuth";
 
 export const userAuth = () => {
   const userLogginHook = async (

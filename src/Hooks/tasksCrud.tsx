@@ -14,7 +14,7 @@ export const useTasks = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
-  
+
   const loadTasks = async () => {
     setLoading(true);
     try {
@@ -72,7 +72,15 @@ export const useTasks = () => {
     }
   };
 
-  return { tasks, loading, error, addTask, toggleTaskStatus, deleteTaskById,loadTasks };
+  return {
+    tasks,
+    loading,
+    error,
+    addTask,
+    toggleTaskStatus,
+    deleteTaskById,
+    loadTasks,
+  };
 };
 
 export default useTasks;
