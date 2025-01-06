@@ -1,4 +1,4 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import {
   fetchTasks,
   createTask,
@@ -27,6 +27,10 @@ export const useTasks = () => {
       setLoading(false);
     }
   };
+useEffect(()=>
+{
+  loadTasks();
+},[]); 
 
   // Add task
   const addTask = async (e: FormEvent<HTMLFormElement>, value: string) => {

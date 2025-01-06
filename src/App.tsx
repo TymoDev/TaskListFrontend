@@ -12,7 +12,7 @@ import SummaryContainer from "./components/Summary/SummaryContainer";
 import TasksContainer from "./components/Tasks/TaskContainer";
 import LoginForm from "./components/Auth/LoginForm";
 import RegisterForm from "./components/Auth/RegisterForm";
-import ResetPasswordForm from "./components/Auth/ResetPasswordForm";
+import ResetPasswordForm from "./components/Auth/ResetPasswordFormCode";
 import VerifyCodeForm from "./components/Auth/VerifyCodeForm";
 import { resetPassword } from "./Requests/User/userResetPasswordRequest";
 import { useResetPasswordLogic } from "./components/Auth/ResetPasswordLogicParent";
@@ -21,7 +21,7 @@ function App() {
   const { tasks, loading, error, addTask, toggleTaskStatus, deleteTaskById } = useTasks();
   const { userLogginHook, userRegisterHook } = userAuth();
   const { resetPasswordHook, verifyCodeUserHook } = resetPassword();
-  const {email,setEmail} = useResetPasswordLogic();
+  const { email, setEmail } = useResetPasswordLogic();
 
   return (
     <Routes>
@@ -80,10 +80,10 @@ function App() {
           <div className="flex justify-center m-5">
             <div className="flex flex-col items-center">
               <div className="border shadow p-10 flex flex-col gap-10 sm:w-[640px]">
-                <ResetPasswordForm 
-                email={email}
-                setEmail={setEmail}
-                resetPasswordSubmit={resetPasswordHook} 
+                <ResetPasswordForm
+                  email={email}
+                  setEmail={setEmail}
+                  resetPasswordSubmit={resetPasswordHook}
                 />
               </div>
             </div>
@@ -96,10 +96,7 @@ function App() {
           <div className="flex justify-center m-5">
             <div className="flex flex-col items-center">
               <div className="border shadow p-10 flex flex-col gap-10 sm:w-[640px]">
-                <VerifyCodeForm          
-                email={email}
-                onSubmit={verifyCodeUserHook} 
-                />
+                <VerifyCodeForm email={email} onSubmit={verifyCodeUserHook} />
               </div>
             </div>
           </div>

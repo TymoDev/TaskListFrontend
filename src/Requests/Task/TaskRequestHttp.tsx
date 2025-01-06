@@ -1,6 +1,6 @@
 import { Task } from "../../Models/TasksModel";
 // api/tasks.ts
-const API_URL = "http://localhost:7072/api/Task";
+const API_URL = "http://localhost:7072/api/Tasks";
 
 export const fetchTasks = async (): Promise<Task[]> => {
   const response = await fetch(`${API_URL}/user`, {
