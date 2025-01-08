@@ -16,13 +16,13 @@ const VerifyCodeForm = ({
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const codeAsNumber = parseInt(resetCode, 10);
+    const codeAsNumber = parseInt(resetCode, 5);
     if (!isNaN(codeAsNumber)) {
       const result = await onSubmit(email, codeAsNumber);
       if (result.status === 200) {
-        navigate("/login");
+        navigate("/password/reset");
       } else {
-        console.error(result.error || "Verify code failed");
+        navigate("/password/reset");
       }
     } else {
       console.error("Invalid reset code format");
@@ -44,7 +44,7 @@ const VerifyCodeForm = ({
             type="text"
             id="resetCode"
             value={resetCode}
-            onChange={(e) => setResetCode(e.target.value)} // Змінюємо стан зі string
+            onChange={(e) => setResetCode(e.target.value)}
             className="w-full p-2 border rounded-md mb-4"
             required
           />

@@ -2,7 +2,7 @@ const API_URL = "http://localhost:7072/api/auth/ResetPassword";
 //these parameters must be of the same name as the backend accepts, so that it can deserialize it properly
 
 export const resetPassword = () => {
-  const resetPasswordHook = async (
+  const resetPasswordCodeHook = async (
     email: string
   ): Promise<{ status: number; error?: string }> => {
     try {
@@ -60,5 +60,5 @@ export const resetPassword = () => {
       };
     }
   };
-  return { resetPasswordHook, verifyCodeUserHook };
+  return {resetPasswordCodeHook, verifyCodeUserHook };
 };

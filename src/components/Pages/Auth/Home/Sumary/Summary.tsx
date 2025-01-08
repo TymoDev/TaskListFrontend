@@ -1,5 +1,6 @@
-import { Task } from "../../Models/TasksModel";
+import { Task } from "../../../../../Models/TasksModel";
 import SummaryItem from "./SummaryItem";
+
 
 const Summary = ({ tasks }: { tasks: Task[] }) => {
   const total = tasks.length;

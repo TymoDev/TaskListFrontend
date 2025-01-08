@@ -1,5 +1,5 @@
 import TaskItem from "./TaskItem";
-import { Task } from "../../Models/TasksModel";
+import { Task } from "../../../Models/TasksModel";
 
 const Tasks = ({
   tasks,
@@ -10,7 +10,6 @@ const Tasks = ({
   toggleDone: (id: string, done: string) => void;
   handleDelete: (id: string) => void;
 }) => {
-
   return (
     <div className="flex flex-col gap-2">
       {tasks.length ? (

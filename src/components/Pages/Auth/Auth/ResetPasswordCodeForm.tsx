@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const ResetPasswordForm = ({
+const ResetPasswordCodeForm = ({
   email,
   setEmail,
   resetPasswordSubmit,
 }: {
-  email:string
+  email: string;
   setEmail: React.Dispatch<React.SetStateAction<string>>;
   resetPasswordSubmit: (
     email: string
@@ -61,4 +61,4 @@ const ResetPasswordForm = ({
   );
 };
 
-export default ResetPasswordForm;
+export default ResetPasswordCodeForm;

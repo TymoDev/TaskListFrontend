@@ -4,9 +4,9 @@ import {
   createTask,
   updateTask,
   deleteTask,
-} from "../Requests/Task/TaskRequestHttp";
+} from "../../Requests/Task/TaskRequestHttp";
 import { v4 as uuidv4 } from "uuid";
-import { Task } from "../Models/TasksModel";
+import { Task } from "../../Models/TasksModel";
 import { useNavigate } from "react-router-dom";
 
 export const useTasks = () => {
@@ -27,10 +27,9 @@ export const useTasks = () => {
       setLoading(false);
     }
   };
-useEffect(()=>
-{
-  loadTasks();
-},[]); 
+  useEffect(() => {
+    loadTasks();
+  }, []);
 
   // Add task
   const addTask = async (e: FormEvent<HTMLFormElement>, value: string) => {
