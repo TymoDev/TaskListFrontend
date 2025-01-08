@@ -1,24 +1,14 @@
 import Container from "../../../../Container";
 import Summary from "./Summary";
-import { Task } from "../../../../../Models/TasksModel";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../Redux/store";
 const SummaryContainer = ({
-  tasks,
-  loading,
-  error,
 }: {
-  tasks: Task[];
-  loading: boolean;
-  error: string | null;
 }) => {
+  const todos = useSelector((state: RootState) => state.tasks);
   return (
     <Container title={"Summary"}>
-      {loading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <p className="text-red-500">{error}</p>
-      ) : (
-        <Summary tasks={tasks} />
-      )}
+        <Summary tasks={todos} />
     </Container>
   );
 };

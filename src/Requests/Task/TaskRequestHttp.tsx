@@ -13,15 +13,14 @@ export const fetchTasks = async (): Promise<Task[]> => {
 
   const backendTasks = await response.json();
 
-  return backendTasks.map((task: any) => ({
+  return backendTasks?.map?.((task: any) => ({
     id: task.id,
-    name: task.taskName,
-    done: task.taskStatus,
+    taskName: task.taskName,
+    taskStatus: task.taskStatus,
   }));
 };
 
 export const createTask = async (task: {
-  guid: string;
   taskName: string;
   taskStatus: string;
 }): Promise<Task> => {
@@ -35,12 +34,41 @@ export const createTask = async (task: {
   });
 
   if (!response.ok) {
-    throw new Error("Failed to create task");
+    throw new Error("Failed to create task"); //return task, not guid
   }
   return response.json();
 };
 
-export const updateTask = async (
+export const updateTask = async ({
+  id,
+  taskName,
+  taskStatus,
+}: {
+  id: string;
+  taskName: string;
+  taskStatus: string;
+}): Promise<Task> => {
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      taskName: taskName,
+      taskStatus: taskStatus,
+    }),
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to update task");
+  }
+  const backendResponse = await response.json();
+
+  return backendResponse.data;
+};
+
+/*export const updateTask = async (
   id: string,
   name: string,
   updatedData: { done: string }
@@ -62,14 +90,17 @@ export const updateTask = async (
   }
 
   return response.json();
-};
+};*/
 
-export const deleteTask = async (id: string): Promise<void> => {
+export const deleteTask = async (id: string): Promise<{ id: string }> => {
   const response = await fetch(`${API_URL}/${id}`, {
     method: "DELETE",
     credentials: "include",
   });
+
   if (!response.ok) {
     throw new Error("Failed to delete task");
   }
+
+  return { id }; // Повертаємо об'єкт із id
 };

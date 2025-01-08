@@ -1,11 +1,15 @@
+import { useSelector } from "react-redux";
 import { Task } from "../../../../../Models/TasksModel";
 import SummaryItem from "./SummaryItem";
+import { RootState } from "../../../../Redux/store";
 
 
-const Summary = ({ tasks }: { tasks: Task[] }) => {
-  const total = tasks.length;
-  const pending = tasks.filter((t) => t.done === "pending").length;
-  const done = tasks.filter((t) => t.done === "done").length;
+const Summary = ({}: { tasks: Task[] }) => {
+  const todos = useSelector((state: RootState) => state.tasks);
+
+  const total = todos.length;
+  const pending = todos.filter((t) => t.taskStatus === "pending").length;
+  const done = todos.filter((t) => t.taskStatus === "done").length;
   return (
     <>
       <div className="flex flex-col gap-1 sm:flex-row sm:justify-between">

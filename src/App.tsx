@@ -5,8 +5,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import Container from "./components/Container";
-import Input from "./components/Input";
-import useTasks from "./Hooks/Task/tasksCrudHook";
+import Input from "./components/Pages/Auth/Home/Task/Input";
 import { userAuth } from "./Hooks/User/userAuthHook";
 import { resetPassword } from "./Requests/User/UserResetPasswordRequest";
 import { useUserPasswordReset } from "./Hooks/User/userUpdateHook";
@@ -20,8 +19,6 @@ import ResetPasswordCodeForm from "./components/Pages/Auth/Auth/ResetPasswordCod
 import VerifyCodeForm from "./components/Pages/Auth/Auth/VerifyCodeForm";
 
 function App() {
-  const { tasks, loading, error, addTask, toggleTaskStatus, deleteTaskById } =
-    useTasks();
   const { userLogginHook, userRegisterHook } = userAuth();
   const { resetPasswordCodeHook, verifyCodeUserHook } = resetPassword();
   const { email, setEmail } = useResetPasswordLogic();
@@ -36,18 +33,11 @@ function App() {
           <div className="flex justify-center m-5">
             <div className="flex flex-col items-center">
               <div className="border shadow p-10 flex flex-col gap-10 sm:w-[640px]">
-                <SummaryContainer
-                  tasks={tasks}
-                  loading={loading}
-                  error={error}
-                />
+                <SummaryContainer/>
                 <Container>
-                  <Input handleSubmit={addTask} />
+                  <Input/>
                 </Container>
                 <TasksContainer
-                  tasks={tasks}
-                  toggleDone={toggleTaskStatus}
-                  handleDelete={deleteTaskById}
                 />
               </div>
             </div>

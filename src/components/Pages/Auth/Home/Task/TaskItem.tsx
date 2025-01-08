@@ -1,30 +1,59 @@
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../../Redux/store";
+import {deleteUserTasks, updateUserTasks} from "../../../../Redux/tasksSlice"
+import { useNavigate } from "react-router-dom";
 const TaskItem = ({
-  name,
-  done,
-  id,
-  toggleDone,
-  handleDelete,
+  taskName,
+  taskStatus,
+  id
 }: {
-  name: string;
-  done: string;
+  taskName: string;
+  taskStatus: string;
   id: string;
-  toggleDone: (id: string, done: string) => void;
-  handleDelete: (id: string) => void;
 }) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+  const handleUpdateTask = async () => {
+    try {
+      await dispatch(
+        updateUserTasks({
+          id,
+          taskName,
+          taskStatus: taskStatus === "done" ? "pending" : "done",
+        })
+      ).unwrap();
+      console.log("Task updated successfully");
+    } catch (err) {
+      console.error("Error updating task:", err);
+      navigate("/login");
+    }
+  };
+
+  const handleDeleteTask = async () => {
+    try {
+      await dispatch(deleteUserTasks(id)).unwrap();
+      console.log("Task deleted successfully");
+    } catch (err) {
+      console.error("Error deleting task:", err);
+      if(err == "Unauthorized"){
+        navigate("/login");
+      }
+      
+    }
+  };
   return (
     <div className="flex justify-between bg-white p-1 px-3 rounded-sm gap-4">
       <div className="flex gap-2 items-center">
         <input
           type="checkbox"
-          checked={done === "done"}
-          onChange={() => toggleDone(id, done)}
-        />
-        {name}
+          checked={taskStatus === "done"}
+          onChange={handleUpdateTask}/>
+        {taskName}
       </div>
       <button
         className="bg-green-200 hover:bg-green-300 rounded-lg p-1 px-3"
         type="button"
-        onClick={() => handleDelete(id)}
+        onClick={handleDeleteTask}
       >
         Delete
       </button>

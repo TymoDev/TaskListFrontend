@@ -1,14 +1,10 @@
 import TaskItem from "./TaskItem";
-import { Task } from "../../../Models/TasksModel";
+import { Task } from "../../../../../Models/TasksModel";
 
 const Tasks = ({
-  tasks,
-  toggleDone,
-  handleDelete,
+  tasks
 }: {
   tasks: Task[];
-  toggleDone: (id: string, done: string) => void;
-  handleDelete: (id: string) => void;
 }) => {
   return (
     <div className="flex flex-col gap-2">
@@ -17,10 +13,8 @@ const Tasks = ({
           <TaskItem
             key={t.id}
             id={t.id}
-            name={t.name}
-            done={t.done}
-            toggleDone={toggleDone}
-            handleDelete={handleDelete}
+            taskName={t.taskName}
+            taskStatus={t.taskStatus}
           />
         ))
       ) : (
