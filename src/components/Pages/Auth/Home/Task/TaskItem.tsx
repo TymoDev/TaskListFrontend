@@ -1,11 +1,14 @@
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../../Redux/store";
-import {deleteUserTasks, updateUserTasks} from "../../../../Redux/tasksSlice"
+import {
+  deleteUserTasks,
+  updateUserTasks,
+} from "../../../../Redux/Slices/tasksSlice";
 import { useNavigate } from "react-router-dom";
 const TaskItem = ({
   taskName,
   taskStatus,
-  id
+  id,
 }: {
   taskName: string;
   taskStatus: string;
@@ -35,10 +38,9 @@ const TaskItem = ({
       console.log("Task deleted successfully");
     } catch (err) {
       console.error("Error deleting task:", err);
-      if(err == "Unauthorized"){
+      if (err == "Unauthorized") {
         navigate("/login");
       }
-      
     }
   };
   return (
@@ -47,14 +49,14 @@ const TaskItem = ({
         <input
           type="checkbox"
           checked={taskStatus === "done"}
-          onChange={handleUpdateTask}/>
+          onChange={handleUpdateTask}
+        />
         {taskName}
       </div>
       <button
         className="bg-green-200 hover:bg-green-300 rounded-lg p-1 px-3"
         type="button"
-        onClick={handleDeleteTask}
-      >
+        onClick={handleDeleteTask}>
         Delete
       </button>
     </div>

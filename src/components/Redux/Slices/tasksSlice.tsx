@@ -1,15 +1,12 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Task } from "../../Models/TasksModel";
+import { Task } from "../../../Models/TasksModel";
 import {
   fetchTasks,
   createTask,
   updateTask,
   deleteTask,
-} from "../../Requests/Task/TaskRequestHttp";
-export const getUserTasks = createAsyncThunk(
-  "tasks/getUserTasks", 
-  fetchTasks
-);
+} from "../../../Requests/Task/TaskRequestHttp";
+export const getUserTasks = createAsyncThunk("tasks/getUserTasks", fetchTasks);
 export const createUserTasks = createAsyncThunk(
   "tasks/createUserTasks",
   createTask
@@ -38,24 +35,22 @@ const tasksSlice = createSlice({
       .addCase(
         getUserTasks.fulfilled,
         (state, action: PayloadAction<Task[]>) => {
-          console.log("fedched tasks successfully");
-          console.log(action.payload);
+          // console.log("fedched tasks successfully");
+          // console.log(action.payload);
           return action.payload;
         }
       )
       .addCase(getUserTasks.pending, (state) => {
-        console.log("Loading tasks...");
+        //console.log("Loading tasks...");
       })
       .addCase(getUserTasks.rejected, (state, action) => {
-        console.error("Failed to fetch tasks:", action.error.message);
+        //console.error("Failed to fetch tasks:", action.error.message);
       });
 
     builder.addCase(
       createUserTasks.fulfilled,
       (state, action: PayloadAction<Task>) => {
-        const newState = [
-          ...state,action.payload
-        ];
+        const newState = [...state, action.payload];
         //console.log(JSON.stringify(state,null,2),JSON.stringify(action.payload,null,2));
         return newState;
       }
@@ -64,11 +59,11 @@ const tasksSlice = createSlice({
       updateUserTasks.fulfilled,
       (state, action: PayloadAction<Task>) => {
         const index = state.findIndex((todo) => todo.id === action.payload.id);
-        console.log({
+        /* console.log({
           state: JSON.stringify(state, null, 2),
           payload: JSON.stringify(action.payload, null, 2),
           index,
-        });
+        });*/
 
         state[index].taskStatus = action.payload.taskStatus;
       }

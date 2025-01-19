@@ -17,6 +17,8 @@ import ResetPasswordForm from "./components/Pages/Auth/Auth/ResetPasswordForm";
 import RegisterForm from "./components/Pages/Auth/Auth/RegisterForm";
 import ResetPasswordCodeForm from "./components/Pages/Auth/Auth/ResetPasswordCodeForm";
 import VerifyCodeForm from "./components/Pages/Auth/Auth/VerifyCodeForm";
+import Navbar from "./components/Pages/Auth/Navbar";
+import ProfilePage from "./components/Pages/Profile/ProfilePage";
 
 function App() {
   const { userLogginHook, userRegisterHook } = userAuth();
@@ -30,18 +32,35 @@ function App() {
       <Route
         path="/home"
         element={
-          <div className="flex justify-center m-5">
-            <div className="flex flex-col items-center">
-              <div className="border shadow p-10 flex flex-col gap-10 sm:w-[640px]">
-                <SummaryContainer/>
-                <Container>
-                  <Input/>
-                </Container>
-                <TasksContainer
-                />
+          <>
+            <Navbar />
+            <div className="flex justify-center m-5">
+              <div className="flex flex-col items-center">
+                <div className="border shadow p-10 flex flex-col gap-10 sm:w-[640px]">
+                  <SummaryContainer />
+                  <Container>
+                    <Input />
+                  </Container>
+                  <TasksContainer />
+                </div>
               </div>
             </div>
-          </div>
+          </>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <>
+            <Navbar />
+            <div className="flex justify-center m-5">
+              <div className="flex flex-col items-center">
+                <div className="border shadow p-10 flex flex-col gap-10 sm:w-[640px]">
+                  <ProfilePage/>
+                </div>
+              </div>
+            </div>
+          </>
         }
       />
       <Route

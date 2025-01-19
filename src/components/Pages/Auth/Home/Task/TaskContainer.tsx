@@ -2,7 +2,7 @@ import Container from "../../../../Container";
 import Tasks from "./Tasks";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getUserTasks } from "../../../../Redux/tasksSlice";
+import { getUserTasks } from "../../../../Redux/Slices/tasksSlice";
 import { AppDispatch, RootState } from "../../../../Redux/store";
 import { useNavigate } from "react-router-dom";
 
@@ -20,9 +20,9 @@ const TasksContainer = () => {
       setError(null);
       try {
         await dispatch(getUserTasks()).unwrap();
-        console.log("Tasks fetched successfully");
+        // console.log("Tasks fetched successfully");
       } catch (err) {
-        console.error("Error fetching tasks:", err);
+        //console.error("Error fetching tasks:", err);
         setError("Failed to fetch tasks. Redirecting to login...");
         navigate("/login");
       } finally {
