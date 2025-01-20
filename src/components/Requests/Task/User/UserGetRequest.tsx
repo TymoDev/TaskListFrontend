@@ -1,4 +1,4 @@
-import { User } from "../../Models/UserModel";
+import { User } from "../../../Models/UserModel";
 
 const API_URL = "http://localhost:7072/api/UserGet";
 
@@ -10,10 +10,12 @@ export const fetchUser = async (): Promise<User> => {
   });
 
   if (response.ok) {
-    console.log("Fetched data succesfully in UserGetRequest");
+    // console.log("Fetched data succesfully in UserGetRequest");
     return await response.json();
   } else {
-    console.log(`Fetch failed with status: ${response.status}`);
+    console.log(
+      `Fetch failed with status: ${response.status} in UserGetRequest`
+    );
     throw new Error(`Fetch failed with status: ${response.status}`);
   }
 };

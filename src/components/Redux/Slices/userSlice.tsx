@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { fetchUser } from "../../../Requests/User/UserGetRequest";
-import { User } from "../../../Models/UserModel";
+import { fetchUser } from "../../Requests/Task/User/UserGetRequest";
+import { User } from "../../Models/UserModel";
 
-export const getUser = createAsyncThunk("tasks/getUserTasks", fetchUser);
+export const getUser = createAsyncThunk("user/getUser", fetchUser);
 
 type UserState = {
   user: User | null;

@@ -1,4 +1,4 @@
-import { UserResetPassword } from "../../Requests/User/UserRequestUpdate";
+import { UserResetPassword } from "../../Requests/Task/User/UserRequestUpdate";
 
 
 export const useUserPasswordReset = () => {

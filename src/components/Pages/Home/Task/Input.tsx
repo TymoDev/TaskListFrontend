@@ -2,9 +2,10 @@ import { FormEvent, useState } from "react";
 import {
   createUserTasks,
   getUserTasks,
-} from "../../../../Redux/Slices/tasksSlice";
+} from "../../../Redux/Slices/tasksSlice";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../../Redux/store";
+import { AppDispatch } from "../../../Redux/store";
+
 
 const InputContainer = ({}: {}) => {
   const [newTaskName, setNewTaskName] = useState("");

@@ -5,20 +5,21 @@ import {
   Navigate,
 } from "react-router-dom";
 import Container from "./components/Container";
-import Input from "./components/Pages/Auth/Home/Task/Input";
-import { userAuth } from "./Hooks/User/userAuthHook";
-import { resetPassword } from "./Requests/User/UserResetPasswordRequest";
-import { useUserPasswordReset } from "./Hooks/User/userUpdateHook";
-import { useResetPasswordLogic } from "./components/Pages/Auth/Auth/ResetPasswordLogicParent";
-import SummaryContainer from "./components/Pages/Auth/Home/Sumary/SummaryContainer";
-import TasksContainer from "./components/Pages/Auth/Home/Task/TaskContainer";
-import LoginForm from "./components/Pages/Auth/Auth/LoginForm";
-import ResetPasswordForm from "./components/Pages/Auth/Auth/ResetPasswordForm";
-import RegisterForm from "./components/Pages/Auth/Auth/RegisterForm";
-import ResetPasswordCodeForm from "./components/Pages/Auth/Auth/ResetPasswordCodeForm";
-import VerifyCodeForm from "./components/Pages/Auth/Auth/VerifyCodeForm";
-import Navbar from "./components/Pages/Auth/Navbar";
+import { resetPassword } from "./components/Requests/Task/User/UserResetPasswordRequest";
 import ProfilePage from "./components/Pages/Profile/ProfilePage";
+import ProfileSettings from "./components/Pages/Profile/ProfileSettingsPage";
+import { userAuth } from "./components/Hooks/User/userAuthHook";
+import { useUserPasswordReset } from "./components/Hooks/User/userUpdateHook";
+import { useResetPasswordLogic } from "./components/Pages/Auth/ResetPasswordLogicParent";
+import SummaryContainer from "./components/Pages/Home/Sumary/SummaryContainer";
+import Input from "./components/Pages/Home/Task/Input";
+import TasksContainer from "./components/Pages/Home/Task/TaskContainer";
+import Navbar from "./components/Pages/Navbar";
+import LoginForm from "./components/Pages/Auth/LoginForm";
+import RegisterForm from "./components/Pages/Auth/RegisterForm";
+import ResetPasswordForm from "./components/Pages/Auth/ResetPasswordForm";
+import ResetPasswordCodeForm from "./components/Pages/Auth/ResetPasswordCodeForm";
+import VerifyCodeForm from "./components/Pages/Auth/VerifyCodeForm";
 
 function App() {
   const { userLogginHook, userRegisterHook } = userAuth();
@@ -56,7 +57,22 @@ function App() {
             <div className="flex justify-center m-5">
               <div className="flex flex-col items-center">
                 <div className="border shadow p-10 flex flex-col gap-10 sm:w-[640px]">
-                  <ProfilePage/>
+                  <ProfilePage />
+                </div>
+              </div>
+            </div>
+          </>
+        }
+      />
+      <Route
+        path="/profile/settings"
+        element={
+          <>
+            <Navbar />
+            <div className="flex justify-center m-5">
+              <div className="flex flex-col items-center">
+                <div className="border shadow p-10 flex flex-col gap-10 sm:w-[640px]">
+                  <ProfileSettings />
                 </div>
               </div>
             </div>

@@ -1,11 +1,7 @@
 import TaskItem from "./TaskItem";
-import { Task } from "../../../../../Models/TasksModel";
+import { Task } from "../../../../Models/TasksModel";
 
-const Tasks = ({
-  tasks
-}: {
-  tasks: Task[];
-}) => {
+const Tasks = ({ tasks }: { tasks: Task[] }) => {
   return (
     <div className="flex flex-col gap-2">
       {tasks.length ? (

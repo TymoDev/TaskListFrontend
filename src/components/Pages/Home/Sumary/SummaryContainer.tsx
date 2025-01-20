@@ -1,7 +1,8 @@
-import Container from "../../../../Container";
+
+import Container from "../../../Container";
+import { RootState } from "../../../Redux/store";
 import Summary from "./Summary";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../Redux/store";
 const SummaryContainer = ({
 }: {
 }) => {

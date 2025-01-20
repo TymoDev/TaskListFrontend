@@ -18,6 +18,10 @@ const RegisterForm = ({
     if (result.status === 200) {
       navigate("/home");
     } else {
+      setUsername("");
+      setEmail("");
+      setPassword("");
+      setRepeatPassword("");
       console.error(result.error || "Login failed");
     }
   };

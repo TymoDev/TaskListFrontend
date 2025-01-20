@@ -16,6 +16,8 @@ const LoginForm = ({
     if (result.status === 200) {
       navigate("/home");
     } else {
+      setLogin("")
+      setPassword("");
       console.error(result.error || "Login failed");
     }
   };
