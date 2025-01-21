@@ -1,7 +1,8 @@
 import { useSelector } from "react-redux";
-import { Task } from "../../../../Models/TasksModel";
+
 import SummaryItem from "./SummaryItem";
-import { RootState } from "../../../../Redux/store";
+import { Task } from "../../../Models/TasksModel";
+import { RootState } from "../../../Redux/store";
 
 const Summary = ({}: { tasks: Task[] }) => {
   const todos = useSelector((state: RootState) => state.tasks);

@@ -18,7 +18,7 @@ const ResetPasswordCodeForm = ({
     e.preventDefault();
     const result = await resetPasswordSubmit(email);
     if (result.status === 200) {
-      navigate("/verify/code");
+      navigate("/auth/verify/code");
     } else {
       console.error(result.error || "Reset password failed");
     }
@@ -51,7 +51,7 @@ const ResetPasswordCodeForm = ({
         </form>
         <div className="text-sm text-center mt-4">
           <button
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/auth/login")}
             className="text-blue-600 hover:underline">
             Back to login
           </button>

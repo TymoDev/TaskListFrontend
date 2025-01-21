@@ -1,5 +1,6 @@
+import { Task } from "../../../Models/TasksModel";
 import TaskItem from "./TaskItem";
-import { Task } from "../../../../Models/TasksModel";
+
 
 const Tasks = ({ tasks }: { tasks: Task[] }) => {
   return (

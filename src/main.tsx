@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import Root from "./Root"; // Імпортуємо новий компонент Root
+import Root from "./Root";
 import "./index.css";
 import {Provider} from "react-redux"
 import store from "./components/Redux/store";

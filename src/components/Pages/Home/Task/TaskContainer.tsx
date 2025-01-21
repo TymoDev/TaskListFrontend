@@ -25,7 +25,7 @@ const TasksContainer = () => {
       } catch (err) {
         //console.error("Error fetching tasks:", err);
         setError("Failed to fetch tasks. Redirecting to login...");
-        navigate("/login");
+        navigate("/auth/login");
       } finally {
         setLoading(false);
       }

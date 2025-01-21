@@ -28,7 +28,7 @@ const ResetPasswordForm = ({
     }
     setError("");
     resetPasswordSubmit(email, newPassword);
-    navigate("/login");
+    navigate("/auth/login");
   };
 
   return (
@@ -76,7 +76,7 @@ const ResetPasswordForm = ({
 
         <div className="text-sm text-center mt-4">
           <button
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/auth/login")}
             className="text-blue-600 hover:underline">
             Back to login
           </button>

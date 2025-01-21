@@ -19,7 +19,7 @@ const ProfilePage = () => {
           await dispatch(getUser()).unwrap();
           //console.log("Fetching user in ProfileHeader");
         } catch {
-          navigate("/login");
+          navigate("/auth/login");
         }
       };
       fetchUser();

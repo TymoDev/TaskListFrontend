@@ -14,7 +14,7 @@ const LoginForm = ({
     e.preventDefault(); 
     const result = await handleLoginSubmit(login, passwordProp); 
     if (result.status === 200) {
-      navigate("/home");
+      navigate("/home/template/tasklist");
     } else {
       setLogin("")
       setPassword("");
@@ -58,13 +58,13 @@ const LoginForm = ({
       </form>
       <div className="text-sm text-center mt-4">
         <button
-          onClick={() => navigate("/register")}
+          onClick={() => navigate("/auth/register")}
           className="text-blue-600 hover:underline mr-2"
         >
           Create account
         </button>
         <button
-          onClick={() => {navigate("/password/code")}}
+          onClick={() => {navigate("/auth/password/code")}}
           className="text-blue-600 hover:underline mr-2"
         >
           Forgot password

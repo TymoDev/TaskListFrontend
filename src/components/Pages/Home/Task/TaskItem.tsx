@@ -30,7 +30,8 @@ const TaskItem = ({
       console.log("Task updated successfully");
     } catch (err) {
       console.error("Error updating task:", err);
-      navigate("/login");
+      if(err == "Unauthorized")
+      navigate("/auth/login");
     }
   };
 
@@ -41,7 +42,7 @@ const TaskItem = ({
     } catch (err) {
       console.error("Error deleting task:", err);
       if (err == "Unauthorized") {
-        navigate("/login");
+        navigate("/auth/login");
       }
     }
   };

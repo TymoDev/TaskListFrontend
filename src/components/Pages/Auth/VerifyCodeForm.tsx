@@ -20,9 +20,9 @@ const VerifyCodeForm = ({
     if (!isNaN(codeAsNumber)) {
       const result = await onSubmit(email, codeAsNumber);
       if (result.status === 200) {
-        navigate("/password/reset");
+        navigate("/auth/password/reset");
       } else {
-        navigate("/password/reset");
+        navigate("/auth/password/reset");
       }
     } else {
       console.error("Invalid reset code format");

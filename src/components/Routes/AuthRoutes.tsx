@@ -1,5 +1,5 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import LoginForm from "../Pages/Auth/LoginForm";
 import RegisterForm from "../Pages/Auth/RegisterForm";
 import ResetPasswordForm from "../Pages/Auth/ResetPasswordForm";
@@ -36,79 +36,76 @@ const AuthRoutes: React.FC<AuthRoutesProps> = ({
   verifyCodeUserHook,
   userLogginHook,
   userRegisterHook,
-}) => [
-  <Route
-    key="login"
-    path="/login"
-    element={
-      <div className="flex justify-center m-5">
-        <div className="flex flex-col items-center">
-          <div className="border shadow p-10 flex flex-col gap-10 sm:w-[640px]">
-            <LoginForm handleLoginSubmit={userLogginHook} />
+}) => (
+  <Routes>
+    <Route
+      path="/login"
+      element={
+        <div className="flex justify-center m-5">
+          <div className="flex flex-col items-center">
+            <div className="border shadow p-10 flex flex-col gap-10 sm:w-[640px]">
+              <LoginForm handleLoginSubmit={userLogginHook} />
+            </div>
           </div>
         </div>
-      </div>
-    }
-  />,
-  <Route
-    key="register"
-    path="/register"
-    element={
-      <div className="flex justify-center m-5">
-        <div className="flex flex-col items-center">
-          <div className="border shadow p-10 flex flex-col gap-10 sm:w-[640px]">
-            <RegisterForm handleRegisterSubmit={userRegisterHook} />
+      }
+    />
+    <Route
+      path="/register"
+      element={
+        <div className="flex justify-center m-5">
+          <div className="flex flex-col items-center">
+            <div className="border shadow p-10 flex flex-col gap-10 sm:w-[640px]">
+              <RegisterForm handleRegisterSubmit={userRegisterHook} />
+            </div>
           </div>
         </div>
-      </div>
-    }
-  />,
-  <Route
-    key="password-reset"
-    path="/password/reset"
-    element={
-      <div className="flex justify-center m-5">
-        <div className="flex flex-col items-center">
-          <div className="border shadow p-10 flex flex-col gap-10 sm:w-[640px]">
-            <ResetPasswordForm
-              email={email}
-              resetPasswordSubmit={resetPasswordHook}
-            />
+      }
+    />
+    <Route
+      path="/password/reset"
+      element={
+        <div className="flex justify-center m-5">
+          <div className="flex flex-col items-center">
+            <div className="border shadow p-10 flex flex-col gap-10 sm:w-[640px]">
+              <ResetPasswordForm
+                email={email}
+                resetPasswordSubmit={resetPasswordHook}
+              />
+            </div>
           </div>
         </div>
-      </div>
-    }
-  />,
-  <Route
-    key="password-code"
-    path="/password/code"
-    element={
-      <div className="flex justify-center m-5">
-        <div className="flex flex-col items-center">
-          <div className="border shadow p-10 flex flex-col gap-10 sm:w-[640px]">
-            <ResetPasswordCodeForm
-              email={email}
-              setEmail={setEmail}
-              resetPasswordSubmit={resetPasswordCodeHook}
-            />
+      }
+    />
+    <Route
+      path="/password/code"
+      element={
+        <div className="flex justify-center m-5">
+          <div className="flex flex-col items-center">
+            <div className="border shadow p-10 flex flex-col gap-10 sm:w-[640px]">
+              <ResetPasswordCodeForm
+                email={email}
+                setEmail={setEmail}
+                resetPasswordSubmit={resetPasswordCodeHook}
+              />
+            </div>
           </div>
         </div>
-      </div>
-    }
-  />,
-  <Route
-    key="verify-code"
-    path="/verify/code"
-    element={
-      <div className="flex justify-center m-5">
-        <div className="flex flex-col items-center">
-          <div className="border shadow p-10 flex flex-col gap-10 sm:w-[640px]">
-            <VerifyCodeForm email={email} onSubmit={verifyCodeUserHook} />
+      }
+    />
+    <Route
+      path="/verify/code"
+      element={
+        <div className="flex justify-center m-5">
+          <div className="flex flex-col items-center">
+            <div className="border shadow p-10 flex flex-col gap-10 sm:w-[640px]">
+              <VerifyCodeForm email={email} onSubmit={verifyCodeUserHook} />
+            </div>
           </div>
         </div>
-      </div>
-    }
-  />,
-];
+      }
+    />
+  </Routes>
+);
 
 export default AuthRoutes;

@@ -16,7 +16,7 @@ const RegisterForm = ({
     e.preventDefault(); 
     const result = await handleRegisterSubmit(username,email, passwordProp); 
     if (result.status === 200) {
-      navigate("/home");
+      navigate("/home/template/tasklist");
     } else {
       setUsername("");
       setEmail("");
@@ -84,7 +84,7 @@ const RegisterForm = ({
       </form>
       <div className="text-sm text-center mt-4">
         <button
-          onClick={() => navigate("/login")} // Перехід до логіну
+          onClick={() => navigate("/auth/login")}
           className="text-blue-600 hover:underline"
         >
           Back to login

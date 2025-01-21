@@ -5,10 +5,9 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
-  // Функція для навігації та закриття меню
   const handleNavigate = (path:string) => {
-    navigate(path); // Виконуємо перехід
-    setIsProfileOpen(false); // Закриваємо меню
+    navigate(path); 
+    setIsProfileOpen(false); 
   };
 
   return (
@@ -17,7 +16,7 @@ const Navbar = () => {
         <div className="text-2xl font-bold">Task List</div>
         <div className="flex gap-6 items-center relative">
           <button
-            onClick={() => navigate("/home")}
+            onClick={() => navigate("/home/template/tasklist")}
             className="hover:underline text-white">
             Home
           </button>
@@ -58,11 +57,6 @@ const Navbar = () => {
                   onClick={() => handleNavigate("/profile/settings")}
                   className="block px-4 py-2 hover:bg-gray-100 w-full text-left">
                   Account Settings
-                </button>
-                <button
-                  onClick={() => handleNavigate("/profile/security")}
-                  className="block px-4 py-2 hover:bg-gray-100 w-full text-left">
-                  Security Settings
                 </button>
                 <button
                   onClick={() => handleNavigate("/logout")}
