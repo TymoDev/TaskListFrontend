@@ -21,13 +21,7 @@ const ProfileRoutes: React.FC = () => {
       <Route
         path="/settings"
         element={
-          <div className="flex justify-center m-5">
-            <div className="flex flex-col items-center">
-              <div className="border shadow p-10 flex flex-col gap-10 sm:w-[640px]">
-                <ProfileSettings />
-              </div>
-            </div>
-          </div>
+          <ProfileSettings />
         }
       />
     </Routes>

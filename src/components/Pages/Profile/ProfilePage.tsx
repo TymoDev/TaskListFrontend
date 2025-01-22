@@ -24,7 +24,7 @@ const ProfilePage = () => {
       };
       fetchUser();
     } else {
-      console.log("User from Redux:", user); 
+      //console.log("User from Redux:", user); 
     }
   }, [dispatch, user, navigate]);
 
@@ -33,9 +33,7 @@ const ProfilePage = () => {
   if (!user) return <div>No user data available.</div>;
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white shadow rounded-lg">
       <ProfileHeader user={user} />
-    </div>
   );
 };
 

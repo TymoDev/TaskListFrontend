@@ -1,7 +1,11 @@
-import { loginUser, registerUser } from "../../Requests/Task/User/UserRequestAuth";
+import {
+  AuthVerifyUser,
+  loginUser,
+  logoutUser,
+  registerUser,
+} from "../../Requests/Task/User/UserRequestAuth";
 
-
-export const userAuth = () => {
+export const userAuthHook = () => {
   const userLogginHook = async (
     email: string,
     password: string
@@ -14,6 +18,14 @@ export const userAuth = () => {
         status: 500,
         error: error.message || "An error occurred during login.",
       };
+    }
+  };
+  const userLogoutHook = async (): Promise<void> => {
+    try {
+      await logoutUser(); 
+      console.log("User logged out successfully");
+    } catch (error: any) {
+      console.error("Logout failed:", error.message);
     }
   };
 
@@ -33,5 +45,26 @@ export const userAuth = () => {
     }
   };
 
-  return { userLogginHook, userRegisterHook };
+  const userVerifyAuthHook = async (): Promise<{
+    status: number;
+    error?: string;
+  }> => {
+    try {
+      const result = await AuthVerifyUser();
+      return result;
+    } catch (error: any) {
+      return {
+        status: 500,
+        error: error.message || "An error occurred during login.",
+      };
+    }
+  };
+
+  return {
+    userLogginHook,
+    userRegisterHook,
+    userVerifyAuthHook,
+    userLoginHook: userAuthHook,
+    userLogoutHook,
+  };
 };

@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { userAuthHook } from "../Hooks/User/userAuthHook";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
-  const handleNavigate = (path:string) => {
-    navigate(path); 
-    setIsProfileOpen(false); 
+  const handleNavigate = (path: string) => {
+    navigate(path);
+    setIsProfileOpen(false);
   };
+  const { userLogoutHook } = userAuthHook();
 
   return (
     <div className="bg-gradient-to-r from-blue-500 to-blue-700 text-white p-4 shadow-md">
@@ -59,7 +61,10 @@ const Navbar = () => {
                   Account Settings
                 </button>
                 <button
-                  onClick={() => handleNavigate("/logout")}
+                  onClick={async () => {
+                    await userLogoutHook();
+                    navigate("/auth/login");
+                  }}
                   className="block px-4 py-2 hover:bg-gray-100 w-full text-left">
                   Logout
                 </button>

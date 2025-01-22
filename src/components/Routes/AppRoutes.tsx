@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { userAuth } from "../Hooks/User/userAuthHook";
+import { userAuthHook } from "../Hooks/User/userAuthHook";
 import { resetPassword } from "../Requests/Task/User/UserResetPasswordRequest";
 import { useResetPasswordLogic } from "../Pages/Auth/ResetPasswordLogicParent";
 import { useUserPasswordReset } from "../Hooks/User/userUpdateHook";
@@ -11,7 +11,7 @@ const ProfileRoutes = lazy(() => import("../Routes/ProfileRoutes"));
 const TemplateRoutes = lazy(() => import("../Routes/TemplateRoutes"));
 
 const AppRoutes: React.FC = () => {
-  const { userLogginHook, userRegisterHook } = userAuth();
+  const { userLogginHook, userRegisterHook } = userAuthHook();
   const { resetPasswordCodeHook, verifyCodeUserHook } = resetPassword();
   const { email, setEmail } = useResetPasswordLogic();
   const { resetPasswordHook } = useUserPasswordReset();
