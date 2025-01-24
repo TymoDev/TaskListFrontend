@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
+import { User } from "../../Models/UserModel";
+import UserProfile from "./ProfileHeader";
 
-const ProfileSettings = () => {
+const ProfileSettings = ({ user, userProfile }: { user: User, userProfile: UserProfile }) => {
   const navigate = useNavigate();
 
   const handleEditProfile = () => {
@@ -17,8 +19,7 @@ const ProfileSettings = () => {
         <div className="flex items-center max-w-7xl mx-auto">
           <div className="w-16 h-16 rounded-full bg-gray-600 flex-shrink-0"></div>
           <div className="ml-6">
-            <h1 className="text-3xl font-bold">CollectorsQ</h1>
-            <p className="text-sm">ID: CollectorsQ</p>
+            <h1 className="text-3xl font-bold">{userProfile.username}</h1>
           </div>
         </div>
       </header>
@@ -29,56 +30,64 @@ const ProfileSettings = () => {
             <li>
               <button
                 className="w-full text-left font-semibold text-blue-500 hover:bg-gray-100 py-2 px-4 rounded transition"
-                onClick={() => handleNavigate("/basic-info")}>
+                onClick={() => handleNavigate("/basic-info")}
+              >
                 Basic Info
               </button>
             </li>
             <li>
               <button
                 className="w-full text-left hover:bg-gray-100 py-2 px-4 rounded transition"
-                onClick={() => handleNavigate("/points")}>
+                onClick={() => handleNavigate("/points")}
+              >
                 Points
               </button>
             </li>
             <li>
               <button
                 className="w-full text-left hover:bg-gray-100 py-2 px-4 rounded transition"
-                onClick={() => handleNavigate("/account")}>
+                onClick={() => handleNavigate("/account")}
+              >
                 Account
               </button>
             </li>
             <li>
               <button
                 className="w-full text-left hover:bg-gray-100 py-2 px-4 rounded transition"
-                onClick={() => handleNavigate("/lab")}>
+                onClick={() => handleNavigate("/lab")}
+              >
                 Lab
               </button>
             </li>
             <li>
               <button
                 className="w-full text-left hover:bg-gray-100 py-2 px-4 rounded transition"
-                onClick={() => handleNavigate("/privacy")}>
+                onClick={() => handleNavigate("/privacy")}
+              >
                 Privacy
               </button>
             </li>
             <li>
               <button
                 className="w-full text-left hover:bg-gray-100 py-2 px-4 rounded transition"
-                onClick={() => handleNavigate("/notifications")}>
+                onClick={() => handleNavigate("/notifications")}
+              >
                 Notifications
               </button>
             </li>
             <li>
               <button
                 className="w-full text-left hover:bg-gray-100 py-2 px-4 rounded transition"
-                onClick={() => handleNavigate("/billing")}>
+                onClick={() => handleNavigate("/billing")}
+              >
                 Billing
               </button>
             </li>
             <li>
               <button
                 className="w-full text-left hover:bg-gray-100 py-2 px-4 rounded transition"
-                onClick={() => handleNavigate("/orders")}>
+                onClick={() => handleNavigate("/orders")}
+              >
                 Orders
               </button>
             </li>
@@ -86,53 +95,25 @@ const ProfileSettings = () => {
         </aside>
 
         <section className="bg-white shadow rounded-lg p-6 lg:col-span-3">
-          <h2 className="text-xl font-bold mb-4">Basic Info</h2>
+          <h2 className="text-xl font-bold mb-4 text-center">Basic Info</h2>
           <div className="space-y-4">
-            <div className="flex justify-between">
-              <span>Name</span>
-              <span>CollectorsQ</span>
-              <button className="text-blue-500">Edit</button>
-            </div>
-            <div className="flex justify-between">
-              <span>Gender</span>
-              <span>Not provided</span>
-              <button className="text-blue-500">Edit</button>
-            </div>
-            <div className="flex justify-between">
-              <span>Location</span>
-              <span>Your location</span>
-              <button className="text-blue-500">Edit</button>
-            </div>
-            <div className="flex justify-between">
-              <span>Birthday</span>
-              <span>Your birthday</span>
-              <button className="text-blue-500">Edit</button>
-            </div>
-            <div className="flex justify-between">
-              <span>Summary</span>
-              <span>Tell us about yourself</span>
-              <button className="text-blue-500">Edit</button>
-            </div>
-            <div className="flex justify-between">
-              <span>Website</span>
-              <span>Your blog, portfolio, etc.</span>
-              <button className="text-blue-500">Edit</button>
-            </div>
-            <div className="flex justify-between">
-              <span>Github</span>
-              <span>Your Github username or URL</span>
-              <button className="text-blue-500">Edit</button>
-            </div>
-            <div className="flex justify-between">
-              <span>LinkedIn</span>
-              <span>Your LinkedIn username or URL</span>
-              <button className="text-blue-500">Edit</button>
-            </div>
-            <div className="flex justify-between">
-              <span>X (formerly Twitter)</span>
-              <span>Your X username or URL</span>
-              <button className="text-blue-500">Edit</button>
-            </div>
+            {[
+              { label: "Name", value: userProfile.username },
+              { label: "Gender", value: userProfile.gender },
+              { label: "Location", value: userProfile.location },
+              { label: "Birthday", value: "Your birthday" },
+              { label: "Summary", value: userProfile.description },
+              { label: "Website", value: userProfile.personalWebsiteUrl },
+              { label: "Github", value: userProfile.gitHubUrl },
+              { label: "LinkedIn", value: userProfile.linkedInUrl },
+              { label: "X (formerly Twitter)", value: userProfile.twitterUrl },
+            ].map((item, index) => (
+              <div key={index} className="flex justify-between items-center border-b pb-2">
+                <span className="font-medium w-1/3 text-gray-600 text-center">{item.label}</span>
+                <span className="w-1/3 text-center text-gray-800">{item.value}</span>
+                <button className="text-blue-500">Edit</button>
+              </div>
+            ))}
           </div>
         </section>
       </main>

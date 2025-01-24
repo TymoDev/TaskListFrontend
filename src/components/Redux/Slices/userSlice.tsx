@@ -6,14 +6,14 @@ export const getUser = createAsyncThunk("user/getUser", fetchUser);
 
 type UserState = {
   user: User | null;
-  isLoading: boolean;
-  error: string | null;
+  isLoadingUser: boolean;
+  errorUser: string | null;
 };
 
 const initialState: UserState = {
   user: null,
-  isLoading: false,
-  error: null,
+  isLoadingUser: false,
+  errorUser: null,
 };
 
 const userSlice = createSlice({
@@ -23,18 +23,18 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getUser.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
+        state.isLoadingUser = true;
+        state.errorUser = null;
       })
       .addCase(getUser.fulfilled, (state, action: PayloadAction<User>) => {
-        state.isLoading = false;
+        state.isLoadingUser = false;
         state.user = action.payload;
-        state.error = null;
+        state.errorUser = null;
       })
       .addCase(getUser.rejected, (state, action) => {
-        state.isLoading = false;
+        state.isLoadingUser = false;
         state.user = null;
-        state.error = action.error.message || "Failed to fetch user";
+        state.errorUser = action.error.message || "Failed to fetch user";
       });
   },
 });

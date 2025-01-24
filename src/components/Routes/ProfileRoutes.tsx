@@ -1,29 +1,31 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
-import ProfilePage from "../Pages/Profile/ProfilePage";
 import ProfileSettings from "../Pages/Profile/ProfileSettingsPage";
+import ProfileHeader from "../Pages/Profile/ProfileHeader";
+import { useFetchUserAndProfile } from "../Hooks/UserProfileGetHook";
+import { Route, Routes } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../Redux/store";
 
 const ProfileRoutes: React.FC = () => {
+  const { user, userProfile } = useFetchUserAndProfile();
+  const { errorUser } = useSelector((state: RootState) => state.user);
+
+  const { errorUserProfile } = useSelector(
+    (state: RootState) => state.userProfile
+  );
+
+  if (errorUser || errorUserProfile)
+    return <div>Error: {errorUser || errorUserProfile}</div>;
+
+  if (!user || !userProfile) return <div>No user data available.</div>;
+
+  if (!user || !userProfile) return <div>Loading...</div>;
   return (
     <Routes>
       <Route
         path="/"
-        element={
-          <div className="flex justify-center m-5">
-            <div className="flex flex-col items-center">
-              <div className="border shadow p-10 flex flex-col gap-10 sm:w-[640px]">
-                <ProfilePage />
-              </div>
-            </div>
-          </div>
-        }
+        element={<ProfileHeader user={user} userProfile={userProfile} />}
       />
-      <Route
-        path="/settings"
-        element={
-          <ProfileSettings />
-        }
-      />
+      <Route path="/settings" element={<ProfileSettings user={user} userProfile={userProfile} />} />
     </Routes>
   );
 };

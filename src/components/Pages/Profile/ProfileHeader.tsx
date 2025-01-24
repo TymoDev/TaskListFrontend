@@ -1,7 +1,7 @@
-import React from "react";
 import { User } from "../../Models/UserModel";
+import type { UserProfile } from "../../Models/UserProfileModel";
 
-const UserProfile = ({ user }: { user: User }) => {
+const UserProfile = ({ user, userProfile }: { user: User, userProfile:UserProfile }) => {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center">
       <header className="bg-gradient-to-r from-purple-600 to-blue-500 text-white py-8 w-full shadow-lg">
@@ -21,13 +21,13 @@ const UserProfile = ({ user }: { user: User }) => {
             <li className="py-4 flex justify-between items-center">
               <span className="text-gray-600">Name</span>
               <button className="text-blue-500 hover:underline">
-                {/*user.name ||*/ "Not Provided"}
+                {userProfile.username || "Not Provided"}
               </button>
             </li>
             <li className="py-4 flex justify-between items-center">
               <span className="text-gray-600">Location</span>
               <button className="text-blue-500 hover:underline">
-                {/*user.location ||*/ "Not Provided"}
+                {userProfile.location || "Not Provided"}
               </button>
             </li>
             <li className="py-4 flex justify-between items-center">
@@ -41,49 +41,38 @@ const UserProfile = ({ user }: { user: User }) => {
 
         <section className="bg-white shadow-md rounded-lg p-6">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">Social Links</h2>
-          <ul className="divide-y divide-gray-200">
-            <li className="py-4 flex justify-between items-center">
-              <span className="text-gray-600">Website</span>
-              <a
-                href={/*user.website ||*/ "#"}
-                className="text-blue-500 hover:underline"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {/*user.website ||*/ "Not Provided"}
-              </a>
-            </li>
+          <ul className="divide-y divide-gray-200">           
             <li className="py-4 flex justify-between items-center">
               <span className="text-gray-600">Github</span>
               <a
-                href={/*user.github ||*/ "#"}
+                href={userProfile.gitHubUrl || "#"}
                 className="text-blue-500 hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {/*user.github ||*/ "Not Provided"}
+                {userProfile.gitHubUrl || "Not Provided"}
               </a>
             </li>
             <li className="py-4 flex justify-between items-center">
               <span className="text-gray-600">LinkedIn</span>
               <a
-                href={/*user.linkedin ||*/ "#"}
+                href={userProfile.linkedInUrl || "#"}
                 className="text-blue-500 hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {/*user.linkedin ||*/ "Not Provided"}
+                {userProfile.linkedInUrl || "Not Provided"}
               </a>
             </li>
             <li className="py-4 flex justify-between items-center">
               <span className="text-gray-600">Twitter</span>
               <a
-                href={/*user.twitter ||*/ "#"}
+                href={userProfile.twitterUrl || "#"}
                 className="text-blue-500 hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {/*user.twitter ||*/ "Not Provided"}
+                {userProfile.twitterUrl || "Not Provided"}
               </a>
             </li>
           </ul>

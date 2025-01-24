@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ErrorModal from "../../Modals/ErrorModal";
 
 const RegisterForm = ({
   handleRegisterSubmit,
@@ -11,6 +12,8 @@ const RegisterForm = ({
   const [email, setEmail] = useState("");
   const [passwordProp, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); 
@@ -22,12 +25,17 @@ const RegisterForm = ({
       setEmail("");
       setPassword("");
       setRepeatPassword("");
-      console.error(result.error || "Login failed");
+      setModalMessage(result.error || "Register failed");
+      setIsModalOpen(true);
     }
   };
   return (
-    
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <ErrorModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        message={modalMessage}
+      />
       <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-sm">
         <h2 className="text-2xl font-bold mb-4 text-center">Create your account</h2>
          <form onSubmit={handleSubmit}>

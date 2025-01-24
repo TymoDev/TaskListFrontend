@@ -1,40 +1,45 @@
-import ProfileHeader from "./ProfileHeader";
+/*import ProfileHeader from "./ProfileHeader";
 import React, { useEffect } from "react";
 import { getUser } from "../../Redux/Slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../Redux/store";
 import { useNavigate } from "react-router-dom";
+import { getUserProfile } from "../../Redux/Slices/userProfileSlice";
 
 const ProfilePage = () => {
-  const { user, isLoading, error } = useSelector(
+  const { user, isLoadingUser, errorUser } = useSelector(
     (state: RootState) => state.user
+  );
+  const { userProfile, isLoadingUserProfile, errorUserProfile } = useSelector(
+    (state: RootState) => state.userProfile
   );
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user) {
-      const fetchUser = async () => {
-        try {
-          await dispatch(getUser()).unwrap();
-          //console.log("Fetching user in ProfileHeader");
-        } catch {
-          navigate("/auth/login");
+    const fetchUserAndProfile = async () => {
+      try {
+        const fetchedUser = await dispatch(getUser()).unwrap();
+        if (!userProfile) {
+          await dispatch(getUserProfile(fetchedUser.id)).unwrap();
         }
-      };
-      fetchUser();
-    } else {
-      //console.log("User from Redux:", user); 
+      } catch {
+        navigate("/auth/login");
+      }
+    };
+
+    if (!user || !userProfile) {
+      fetchUserAndProfile();
     }
-  }, [dispatch, user, navigate]);
+  }, [dispatch, navigate, user, userProfile]);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
-  if (!user) return <div>No user data available.</div>;
+  if (isLoadingUser || isLoadingUserProfile) return <div>Loading...</div>;
+  if (errorUser || errorUserProfile)
+    return <div>Error: {errorUser || errorUserProfile}</div>;
+  if (!user || !userProfile) return <div>No user data available.</div>;
 
-  return (
-      <ProfileHeader user={user} />
-  );
+  return <ProfileHeader user={user} userProfile={userProfile} />;
 };
 
 export default ProfilePage;
+*/

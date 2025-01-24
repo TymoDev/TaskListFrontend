@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { userAuthHook } from "../../Hooks/User/userAuthHook";
+import ErrorModal from "../../Modals/ErrorModal";
 
 const LoginForm = ({
   handleLoginSubmit,
@@ -13,6 +14,8 @@ const LoginForm = ({
   const navigate = useNavigate();
   const [login, setLogin] = useState("");
   const [passwordProp, setPassword] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
   const { userVerifyAuthHook } = userAuthHook();
 
   useEffect(() => {
@@ -23,7 +26,7 @@ const LoginForm = ({
       }
     };
     verifyAuth();
-  }, [userVerifyAuthHook, navigate]);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,12 +36,18 @@ const LoginForm = ({
     } else {
       setLogin("");
       setPassword("");
-      console.error(result.error || "Login failed");
+      setModalMessage(result.error || "Login failed");
+      setIsModalOpen(true);
     }
   };
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <ErrorModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        message={modalMessage}
+      />
       <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-sm">
         <h2 className="text-2xl font-bold mb-4 text-center">
           Log in to your account
