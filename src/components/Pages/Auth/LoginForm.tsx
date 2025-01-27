@@ -87,7 +87,7 @@ const LoginForm = ({
         </form>
         <div className="text-sm text-center mt-4">
           <button
-            onClick={() => navigate("/auth/register")}
+            onClick={() => navigate("/auth/register/step1")}
             className="text-blue-600 hover:underline mr-2">
             Create account
           </button>

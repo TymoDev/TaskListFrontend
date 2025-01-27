@@ -2,12 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { User } from "../../Models/UserModel";
 import UserProfile from "./ProfileHeader";
 
-const ProfileSettings = ({ user, userProfile }: { user: User, userProfile: UserProfile }) => {
+const ProfileSettings = ({ userProfile }: { user: User, userProfile: UserProfile }) => {
   const navigate = useNavigate();
 
-  const handleEditProfile = () => {
-    navigate("/profile/edit");
-  };
 
   const handleNavigate = (path: string) => {
     navigate(path);
@@ -99,14 +96,14 @@ const ProfileSettings = ({ user, userProfile }: { user: User, userProfile: UserP
           <div className="space-y-4">
             {[
               { label: "Name", value: userProfile.username },
-              { label: "Gender", value: userProfile.gender },
-              { label: "Location", value: userProfile.location },
-              { label: "Birthday", value: "Your birthday" },
-              { label: "Summary", value: userProfile.description },
-              { label: "Website", value: userProfile.personalWebsiteUrl },
-              { label: "Github", value: userProfile.gitHubUrl },
-              { label: "LinkedIn", value: userProfile.linkedInUrl },
-              { label: "X (formerly Twitter)", value: userProfile.twitterUrl },
+              { label: "Gender", value: userProfile.gender || "Not provided" },
+              { label: "Location", value: userProfile.location || "Not provided"},
+              { label: "Birthday", value: userProfile.birthday || "Not provided"},
+              { label: "Summary", value: userProfile.description || "Not provided"},
+              { label: "Website", value: userProfile.personalWebsiteUrl || "Not provided"},
+              { label: "Github", value: userProfile.gitHubUrl || "Not provided"},
+              { label: "LinkedIn", value: userProfile.linkedInUrl || "Not provided"},
+              { label: "X (formerly Twitter)", value: userProfile.twitterUrl || "Not provided"},
             ].map((item, index) => (
               <div key={index} className="flex justify-between items-center border-b pb-2">
                 <span className="font-medium w-1/3 text-gray-600 text-center">{item.label}</span>

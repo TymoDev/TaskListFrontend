@@ -22,20 +22,43 @@ export const userAuthHook = () => {
   };
   const userLogoutHook = async (): Promise<void> => {
     try {
-      await logoutUser(); 
+      await logoutUser();
       console.log("User logged out successfully");
     } catch (error: any) {
       console.error("Logout failed:", error.message);
     }
   };
 
-  const userRegisterHook = async (
-    username: string,
-    email: string,
-    password: string
-  ): Promise<{ status: number; error?: string }> => {
+  const userRegisterHook = async (data: {
+    login: string;
+    email: string;
+    password: string;
+    username: string;
+    gender: string;
+    birthday: string;
+    location: string;
+    description: string;
+    twitterUrl: string;
+    linkedInUrl: string;
+    gitHubUrl: string;
+    personalWebsiteUrl: string;
+  }): Promise<{ status: number; error?: string }> => {
     try {
-      const result = await registerUser(username, email, password);
+      //console.log(data);
+      const result = await registerUser(
+        data.login,
+        data.email,
+        data.password,
+        data.username,
+        data.gender,
+        data.birthday,
+        data.location,
+        data.description,
+        data.twitterUrl,
+        data.linkedInUrl,
+        data.gitHubUrl,
+        data.personalWebsiteUrl
+      );
       return result;
     } catch (error: any) {
       return {

@@ -40,16 +40,38 @@ export const logoutUser = async (): Promise<void> => {
 };
 
 export const registerUser = async (
-  username: string,
+  login: string,
   email: string,
-  password: string
+  password: string,
+  username: string,
+  gender: string,
+  birthday: string,
+  location: string,
+  description: string,
+  twitterUrl: string,
+  linkedInUrl: string,
+  gitHubUrl: string,
+  personalWebsiteUrl: string
 ): Promise<{ status: number; error?: string }> => {
   const response = await fetch(`${API_URL}/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ username, email, password }),
+    body: JSON.stringify({
+      login: login,
+      email: email,
+      password: password,
+      username: username,
+      gender: gender,
+      birthday: birthday,
+      location: location,
+      description: description,
+      twitterUrl: twitterUrl,
+      linkedInUrl: linkedInUrl,
+      gitHubUrl: gitHubUrl,
+      personalWebsiteUrl: personalWebsiteUrl,
+    }),
     credentials: "include",
   });
 
