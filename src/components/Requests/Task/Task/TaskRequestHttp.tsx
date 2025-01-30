@@ -36,7 +36,8 @@ export const createTask = async (task: {
   if (!response.ok) {
     throw new Error("Failed to create task"); //return task, not guid
   }
-  return response.json();
+  const backendResponse = await response.json();
+  return backendResponse.data;
 };
 
 export const updateTask = async ({
@@ -65,32 +66,9 @@ export const updateTask = async ({
   }
   const backendResponse = await response.json();
 
-  return backendResponse.data;
+  return backendResponse;
 };
 
-/*export const updateTask = async (
-  id: string,
-  name: string,
-  updatedData: { done: string }
-): Promise<Task> => {
-  const response = await fetch(`${API_URL}/${id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      taskName: name,
-      taskStatus: updatedData.done,
-    }),
-    credentials: "include",
-  });
-
-  if (!response.ok) {
-    throw new Error("Failed to update task");
-  }
-
-  return response.json();
-};*/
 
 export const deleteTask = async (id: string): Promise<{ id: string }> => {
   const response = await fetch(`${API_URL}/${id}`, {

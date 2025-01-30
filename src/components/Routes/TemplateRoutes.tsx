@@ -1,9 +1,9 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import SummaryContainer from "../Pages/Home/Sumary/SummaryContainer";
-import Input from "../Pages/Home/Task/Input";
-import TasksContainer from "../Pages/Home/Task/TaskContainer";
 import Container from "../Container";
+import SummaryContainer from "../Pages/Home/DefaultTaskList/TaskList/Sumary/SummaryContainer";
+import Input from "../Pages/Home/DefaultTaskList/TaskList/Task/Input";
+import TasksContainer from "../Pages/Home/DefaultTaskList/TaskList/Task/TaskContainer";
 
 const TemplateRoutes: React.FC = () => {
   return (

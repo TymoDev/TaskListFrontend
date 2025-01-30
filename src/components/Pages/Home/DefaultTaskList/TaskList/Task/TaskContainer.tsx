@@ -3,9 +3,9 @@ import Tasks from "./Tasks";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AppDispatch, RootState } from "../../../Redux/store";
-import { getUserTasks } from "../../../Redux/Slices/tasksSlice";
-import Container from "../../../Container";
+import { AppDispatch, RootState } from "../../../../../Redux/store";
+import { getUserTasks } from "../../../../../Redux/Slices/tasksSlice";
+import Container from "../../../../../Container";
 
 const TasksContainer = () => {
   const dispatch = useDispatch<AppDispatch>();

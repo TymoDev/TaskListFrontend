@@ -17,8 +17,9 @@ const ResetPasswordCodeForm = ({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const result = await resetPasswordSubmit(email);
-    if (result.status === 200) {
+    if (result.status === 202) {
       navigate("/auth/verify/code");
+      setEmail("")
     } else {
       console.error(result.error || "Reset password failed");
     }

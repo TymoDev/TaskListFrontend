@@ -1,12 +1,7 @@
 import { useDispatch } from "react-redux";
-
-import {
-  deleteUserTasks,
-  updateUserTasks,
-} from "../../../Redux/Slices/tasksSlice";
-
 import { useNavigate } from "react-router-dom";
-import { AppDispatch } from "../../../Redux/store";
+import { AppDispatch } from "../../../../../Redux/store";
+import { deleteUserTasks, updateUserTasks } from "../../../../../Redux/Slices/tasksSlice";
 const TaskItem = ({
   taskName,
   taskStatus,

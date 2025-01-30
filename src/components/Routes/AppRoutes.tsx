@@ -20,7 +20,7 @@ const AppRoutes: React.FC = () => {
     <Suspense fallback={<div>Loading...</div>}>
       <Routes>
         <Route element={<LayoutNavbar />}>
-          <Route path="/" element={<Navigate to="/home" replace />} />
+          <Route path="/" element={<Navigate to="/auth/login" replace />} />
           <Route path="/profile/*" element={<ProfileRoutes />} />
           <Route path="/home/template/*" element={<TemplateRoutes />} />
         </Route>

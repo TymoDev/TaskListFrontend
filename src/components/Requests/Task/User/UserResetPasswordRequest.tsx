@@ -6,18 +6,18 @@ export const resetPassword = () => {
     email: string
   ): Promise<{ status: number; error?: string }> => {
     try {
-      const response = await fetch(`${API_URL}/reset/password`, {
+      const response = await fetch(`${API_URL}/reset/password/${email}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email }),
         credentials: "include",
       });
 
       if (!response.ok) {
-        const errorData = await response.json().catch(() => null);
-        const errorMessage = errorData?.message || "Invalid  email";
+        const text = await response.text();
+        const errorData = text ? JSON.parse(text) : null;
+        const errorMessage = errorData?.message || "Invalid email";
         return { status: response.status, error: errorMessage };
       }
 
@@ -60,5 +60,5 @@ export const resetPassword = () => {
       };
     }
   };
-  return {resetPasswordCodeHook, verifyCodeUserHook };
+  return { resetPasswordCodeHook, verifyCodeUserHook };
 };
