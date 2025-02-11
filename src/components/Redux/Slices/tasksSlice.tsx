@@ -1,11 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Task } from "../../Models/TasksModel";
-import {
-  fetchTasks,
-  createTask,
-  updateTask,
-  deleteTask,
-} from "../../Requests/Task/Task/TaskRequestHttp";
+import { Task } from "../../Models/TasksListModel";
+import { createTask, deleteTask, fetchTasks, updateTask } from "../../Requests/Task/Task/TaskListRequestHttp";
+
 export const getUserTasks = createAsyncThunk("tasks/getUserTasks", fetchTasks);
 export const createUserTasks = createAsyncThunk(
   "tasks/createUserTasks",

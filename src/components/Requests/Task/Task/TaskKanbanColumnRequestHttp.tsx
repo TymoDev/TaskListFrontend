@@ -1,29 +1,31 @@
-/*import { Task } from "../../../Models/TasksListModel";
-// api/tasks.ts
-const API_URL = "http://localhost:7072/api/Tasks";
+import { ColumnModel, TaskKanbanModel } from "../../../Models/TaskKanbanModel";
 
-export const fetchTasks = async (): Promise<Task[]> => {
+// api/tasks.ts
+const API_URL = "http://localhost:7072/api/TaskKanbanColumns";
+
+export const fetchColumns = async (): Promise<ColumnModel[]> => {
   const response = await fetch(`${API_URL}/user`, {
     method: "GET",
     credentials: "include",
   });
+
   if (!response.ok) {
-    throw new Error(`Failed to fetch tasks: ${response.statusText}`);
+    throw new Error(`Failed to fetch columns: ${response.statusText}`);
   }
 
-  const backendTasks = await response.json();
+  const backendColumns = await response.json();
 
-  return backendTasks?.map?.((task: any) => ({
-    id: task.id,
-    taskName: task.taskName,
-    taskStatus: task.taskStatus,
+  return backendColumns?.map?.((column: any) => ({
+    id: column.id,
+    name: column.name,
+    position: column.position,
   }));
 };
 
-export const createTask = async (task: {
-  taskName: string;
-  taskStatus: string;
-}): Promise<Task> => {
+export const createColumn = async (task: {
+  name: string;
+  position: number;
+}): Promise<ColumnModel> => {
   const response = await fetch(API_URL, {
     method: "POST",
     headers: {
@@ -34,13 +36,13 @@ export const createTask = async (task: {
   });
 
   if (!response.ok) {
-    throw new Error("Failed to create task"); //return task, not guid
+    throw new Error("Failed to create colimn for canban tasks");
   }
-  const backendResponse = await response.json();
-  return backendResponse.data;
+  return response.json();
 };
 
-export const updateTask = async ({
+//Previous solution need update
+export const updateColumn = async ({
   id,
   taskName,
   taskStatus,
@@ -48,7 +50,7 @@ export const updateTask = async ({
   id: string;
   taskName: string;
   taskStatus: string;
-}): Promise<Task> => {
+}): Promise<TaskKanbanModel> => {
   const response = await fetch(`${API_URL}/${id}`, {
     method: "PUT",
     headers: {
@@ -66,18 +68,18 @@ export const updateTask = async ({
   }
   const backendResponse = await response.json();
 
-  return backendResponse;
+  return backendResponse.data;
 };
 
-export const deleteTask = async (id: string): Promise<{ id: string }> => {
+export const deleteColumn = async (id: string): Promise<{ id: string }> => {
   const response = await fetch(`${API_URL}/${id}`, {
     method: "DELETE",
     credentials: "include",
   });
 
   if (!response.ok) {
-    throw new Error("Failed to delete task");
+    throw new Error("Failed to delete column");
   }
 
-  return { id }; // Повертаємо об'єкт із id
-};*/
+  return { id };
+};

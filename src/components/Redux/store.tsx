@@ -1,14 +1,18 @@
 import { configureStore } from "@reduxjs/toolkit";
-import tasksReducer from "./Slices/tasksSlice"; // Import the tasksSlice reducer
+import tasksReducer from "./Slices/tasksSlice";
 import userReducer from "./Slices/userSlice";
 import userProfileReducer from "./Slices/userProfileSlice";
+import kanbanTasksReducer from "./Slices/kanbanTasksSlice";
+import kanbanColumnsReducer from "./Slices/kanbanColumnsSlice";
 
 // Create the Redux store
 const store = configureStore({
   reducer: {
     tasks: tasksReducer,
+    kanbanTasks: kanbanTasksReducer,
     user: userReducer,
     userProfile: userProfileReducer,
+    kanbanColumns: kanbanColumnsReducer,
   },
 });
 

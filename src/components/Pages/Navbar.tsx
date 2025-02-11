@@ -15,7 +15,7 @@ const Navbar = () => {
   return (
     <div className="bg-gradient-to-r from-blue-500 to-blue-700 text-white p-4 shadow-md">
       <div className="container mx-auto flex justify-between items-center">
-        <div className="text-2xl font-bold">Task List</div>
+        <div className="text-2xl font-bold">Task Manager</div>
         <div className="flex gap-6 items-center relative">
           <button
             onClick={() => navigate("/home/template/tasklist")}

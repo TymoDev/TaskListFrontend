@@ -1,4 +1,4 @@
-import { Task } from "../Models/TasksModel";
+import { Task } from "../../../Models/TasksListModel";
 
 // api/tasks.ts
 const API_URL = "http://localhost:7072/api/Tasks";

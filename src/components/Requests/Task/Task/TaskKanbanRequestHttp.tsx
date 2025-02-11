@@ -1,8 +1,9 @@
-/*import { Task } from "../../../Models/TasksListModel";
-// api/tasks.ts
-const API_URL = "http://localhost:7072/api/Tasks";
+import { TaskKanbanModel } from "../../../Models/TaskKanbanModel";
 
-export const fetchTasks = async (): Promise<Task[]> => {
+// api/tasks.ts
+const API_URL = "http://localhost:7072/api/TasksKanban";
+
+export const fetchKanbanTasks = async (): Promise<TaskKanbanModel[]> => {
   const response = await fetch(`${API_URL}/user`, {
     method: "GET",
     credentials: "include",
@@ -14,16 +15,17 @@ export const fetchTasks = async (): Promise<Task[]> => {
   const backendTasks = await response.json();
 
   return backendTasks?.map?.((task: any) => ({
-    id: task.id,
+    taskId: task.taskId,
     taskName: task.taskName,
-    taskStatus: task.taskStatus,
+    columnId: task.columnId,
+    order: task.order,
   }));
 };
 
-export const createTask = async (task: {
+export const createKanbanTask = async (task: {
   taskName: string;
-  taskStatus: string;
-}): Promise<Task> => {
+  columnId: string;
+}): Promise<TaskKanbanModel> => {
   const response = await fetch(API_URL, {
     method: "POST",
     headers: {
@@ -36,11 +38,11 @@ export const createTask = async (task: {
   if (!response.ok) {
     throw new Error("Failed to create task"); //return task, not guid
   }
-  const backendResponse = await response.json();
-  return backendResponse.data;
+  return response.json();
 };
 
-export const updateTask = async ({
+//Previous solution need update
+export const updateKanbanTask = async ({
   id,
   taskName,
   taskStatus,
@@ -48,7 +50,7 @@ export const updateTask = async ({
   id: string;
   taskName: string;
   taskStatus: string;
-}): Promise<Task> => {
+}): Promise<TaskKanbanModel> => {
   const response = await fetch(`${API_URL}/${id}`, {
     method: "PUT",
     headers: {
@@ -66,10 +68,10 @@ export const updateTask = async ({
   }
   const backendResponse = await response.json();
 
-  return backendResponse;
+  return backendResponse.data;
 };
 
-export const deleteTask = async (id: string): Promise<{ id: string }> => {
+export const deleteKanbanTask = async (id: string): Promise<{ id: string }> => {
   const response = await fetch(`${API_URL}/${id}`, {
     method: "DELETE",
     credentials: "include",
@@ -79,5 +81,5 @@ export const deleteTask = async (id: string): Promise<{ id: string }> => {
     throw new Error("Failed to delete task");
   }
 
-  return { id }; // Повертаємо об'єкт із id
-};*/
+  return { id };
+};

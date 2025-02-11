@@ -4,6 +4,7 @@ import Container from "../Container";
 import SummaryContainer from "../Pages/Home/DefaultTaskList/TaskList/Sumary/SummaryContainer";
 import Input from "../Pages/Home/DefaultTaskList/TaskList/Task/Input";
 import TasksContainer from "../Pages/Home/DefaultTaskList/TaskList/Task/TaskContainer";
+import { Board } from "../Pages/Home/DefaultTaskList/Kanban/Board";
 
 const TemplateRoutes: React.FC = () => {
   return (
@@ -14,17 +15,17 @@ const TemplateRoutes: React.FC = () => {
           <div className="flex justify-center m-5">
             <div className="flex flex-col items-center">
               <div className="border shadow p-10 flex flex-col gap-10 sm:w-[640px]">
-                <SummaryContainer/>
+                <SummaryContainer />
                 <Container>
-                  <Input/>
+                  <Input />
                 </Container>
-                <TasksContainer
-                />
+                <TasksContainer />
               </div>
             </div>
           </div>
         }
       />
+      <Route path="/kanban" element={<Board />} />
     </Routes>
   );
 };
