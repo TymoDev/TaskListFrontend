@@ -1,7 +1,10 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch } from "../../../../../Redux/store";
-import { deleteUserTasks, updateUserTasks } from "../../../../../Redux/Slices/tasksSlice";
+import {
+  deleteUserTask,
+  updateUserTask,
+} from "../../../../../Redux/Slices/tasksSlice";
 const TaskItem = ({
   taskName,
   taskStatus,
@@ -16,7 +19,7 @@ const TaskItem = ({
   const handleUpdateTask = async () => {
     try {
       await dispatch(
-        updateUserTasks({
+        updateUserTask({
           id,
           taskName,
           taskStatus: taskStatus === "done" ? "pending" : "done",
@@ -25,14 +28,13 @@ const TaskItem = ({
       console.log("Task updated successfully");
     } catch (err) {
       console.error("Error updating task:", err);
-      if(err == "Unauthorized")
-      navigate("/auth/login");
+      if (err == "Unauthorized") navigate("/auth/login");
     }
   };
 
   const handleDeleteTask = async () => {
     try {
-      await dispatch(deleteUserTasks(id)).unwrap();
+      await dispatch(deleteUserTask(id)).unwrap();
       console.log("Task deleted successfully");
     } catch (err) {
       console.error("Error deleting task:", err);

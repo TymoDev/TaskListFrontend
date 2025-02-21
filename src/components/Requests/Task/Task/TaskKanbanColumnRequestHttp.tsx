@@ -41,24 +41,24 @@ export const createColumn = async (task: {
   return response.json();
 };
 
-//Previous solution need update
 export const updateColumn = async ({
   id,
-  taskName,
-  taskStatus,
+  columnName,
+  columnPosition,
 }: {
   id: string;
-  taskName: string;
-  taskStatus: string;
-}): Promise<TaskKanbanModel> => {
-  const response = await fetch(`${API_URL}/${id}`, {
+  columnName: string;
+  columnPosition: number;
+}): Promise<ColumnModel> => {
+  const response = await fetch(`${API_URL}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      taskName: taskName,
-      taskStatus: taskStatus,
+      id: id,
+      name: columnName,
+      position: columnPosition,
     }),
     credentials: "include",
   });

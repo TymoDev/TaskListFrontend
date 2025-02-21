@@ -5,13 +5,25 @@ import {
   TaskKanbanModel,
 } from "../../../../Models/TaskKanbanModel";
 import { Task } from "./Task";
-import React from "react";
+import { UpdateColumnKanbanModal } from "../../../../Modals/UpdateColumnKanbanModal";
 
 interface ColumnProps {
   column: ColumnModel;
   tasks: TaskKanbanModel[];
-  onRemoveColumn?: (id: string) => void;
+  onRemoveColumn: (id: string) => void;
   onAddTask: (taskName: string, columnId: string) => void;
+  onUpdateTask: (
+    taskId: string,
+    taskName: string,
+    order: number,
+    columnId: string
+  ) => Promise<TaskKanbanModel>;
+  onUpdateColumn: (
+    id: string,
+    name: string,
+    position: number
+  ) => Promise<ColumnModel>;
+  onDeleteTask: (id: string) => Promise<void>;
 }
 
 export const Column = ({
@@ -19,9 +31,14 @@ export const Column = ({
   tasks,
   onRemoveColumn,
   onAddTask,
+  onUpdateTask,
+  onDeleteTask,
+  onUpdateColumn,
 }: ColumnProps) => {
   const [taskName, setTaskName] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [columnName, setColumnName] = useState("");
+  const [isUpdateColumnModalOpen, setIsUpdateColumnModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -42,16 +59,14 @@ export const Column = ({
             <div className="absolute right-0 mt-2 w-40 bg-gray-700 shadow-lg rounded-lg z-10">
               <button
                 className="block w-full text-left px-4 py-2 hover:bg-gray-600"
-                onClick={() => alert("Редагування колонки")}>
+                onClick={() => setIsUpdateColumnModalOpen(true)}>
                 ✏ Edit
               </button>
-              {onRemoveColumn && (
-                <button
-                  className="block w-full text-left px-4 py-2 hover:bg-gray-600 text-red-400"
-                  onClick={() => onRemoveColumn(column.id)}>
-                  🗑 Delete
-                </button>
-              )}
+              <button
+                className="block w-full text-left px-4 py-2 hover:bg-gray-600 text-red-400"
+                onClick={() => onRemoveColumn(column.id)}>
+                🗑 Delete
+              </button>
             </div>
           )}
         </div>
@@ -59,29 +74,48 @@ export const Column = ({
 
       <div className="space-y-2 mb-4 flex-grow min-h-0">
         {tasks.map((task) => (
-          <Task key={task.taskId} task={task} />
+          <Task
+            key={task.taskId}
+            task={task}
+            updateTask={onUpdateTask}
+            deleteTask={onDeleteTask}
+          />
         ))}
       </div>
 
       <button
-        onClick={() => setIsModalOpen(true)}
+        onClick={() => setIsAddModalOpen(true)}
         className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded flex items-center justify-center w-full">
         ➕ Add Task
       </button>
 
       <AddKanbanTaskModal
-        isOpen={isModalOpen}
+        isOpen={isAddModalOpen}
         onClose={() => {
-          setIsModalOpen(false);
+          setIsAddModalOpen(false);
           setTaskName("");
         }}
         onSubmit={(name) => {
           onAddTask(name, column.id);
           setTaskName("");
-          setIsModalOpen(false);
+          setIsAddModalOpen(false);
         }}
         taskName={taskName}
         setTaskName={setTaskName}
+      />
+      <UpdateColumnKanbanModal
+        isOpen={isUpdateColumnModalOpen}
+        onClose={() => {
+          setIsUpdateColumnModalOpen(false);
+          setColumnName("");
+        }}
+        onSubmit={(name) => {
+          onUpdateColumn(column.id, name, column.position);
+          setTaskName("");
+          setIsAddModalOpen(false);
+        }}
+        columnName={columnName}
+        setColumnName={setColumnName}
       />
     </div>
   );

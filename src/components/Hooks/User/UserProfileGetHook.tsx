@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../Redux/store";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { getUser } from "../Redux/Slices/userSlice";
-import { getUserProfile } from "../Redux/Slices/userProfileSlice";
+import { getUserProfile } from "../../Redux/Slices/userProfileSlice";
+import { getUser } from "../../Redux/Slices/userSlice";
+import { AppDispatch, RootState } from "../../Redux/store";
 
 export const useFetchUserAndProfile = () => {
     const { user } = useSelector((state: RootState) => state.user);

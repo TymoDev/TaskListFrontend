@@ -2,9 +2,7 @@ import { useState } from "react";
 
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../../../Redux/store";
-import { createUserTasks } from "../../../../../Redux/Slices/tasksSlice";
-
-
+import { createUserTask } from "../../../../../Redux/Slices/tasksSlice";
 
 const InputContainer = ({}: {}) => {
   const [newTaskName, setNewTaskName] = useState("");
@@ -16,7 +14,7 @@ const InputContainer = ({}: {}) => {
       onSubmit={(e) => {
         e.preventDefault();
         dispatch(
-          createUserTasks({ taskName: newTaskName, taskStatus: "pending" })
+          createUserTask({ taskName: newTaskName, taskStatus: "pending" })
         );
         setNewTaskName("");
       }}>

@@ -41,30 +41,33 @@ export const createKanbanTask = async (task: {
   return response.json();
 };
 
-//Previous solution need update
 export const updateKanbanTask = async ({
-  id,
+  taskId,
   taskName,
-  taskStatus,
+  order,
+  columnId,
 }: {
-  id: string;
+  taskId: string;
   taskName: string;
-  taskStatus: string;
+  order: number;
+  columnId: string;
 }): Promise<TaskKanbanModel> => {
-  const response = await fetch(`${API_URL}/${id}`, {
+  const response = await fetch(`${API_URL}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
+      taskId: taskId,
       taskName: taskName,
-      taskStatus: taskStatus,
+      order: order,
+      columnId: columnId,
     }),
     credentials: "include",
   });
 
   if (!response.ok) {
-    throw new Error("Failed to update task");
+    throw new Error("Failed to update kanban task");
   }
   const backendResponse = await response.json();
 

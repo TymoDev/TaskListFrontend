@@ -1,9 +1,9 @@
 import ProfileSettings from "../Pages/Profile/ProfileSettingsPage";
 import ProfileHeader from "../Pages/Profile/ProfileHeader";
-import { useFetchUserAndProfile } from "../Hooks/UserProfileGetHook";
 import { Route, Routes } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
+import { useFetchUserAndProfile } from "../Hooks/User/UserProfileGetHook";
 
 const ProfileRoutes: React.FC = () => {
   const { user, userProfile } = useFetchUserAndProfile();

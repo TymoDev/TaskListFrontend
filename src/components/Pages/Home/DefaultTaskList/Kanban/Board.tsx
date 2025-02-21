@@ -4,13 +4,18 @@ import { useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "../../../../Redux/store";
 import {
   createUserKanbanTask,
+  deleteUserKanbanTask,
   getUserKanbanTasks,
+  updateUserKanbanTask,
 } from "../../../../Redux/Slices/kanbanTasksSlice";
 import {
-  createUserKanbanColumns,
+  createUserKanbanColumn,
+  deleteUserKanbanColumn,
   getUserKanbanColumns,
+  updateUserKanbanColumn,
 } from "../../../../Redux/Slices/kanbanColumnsSlice";
 import { Column } from "./Column";
+import { ColumnModel, TaskKanbanModel } from "../../../../Models/TaskKanbanModel";
 
 export const Board = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -39,12 +44,50 @@ export const Board = () => {
     fetchTasks();
   }, [dispatch, navigate]);
 
+  const handleAddTask = async (taskName: string, columnId: string) => {
+    try {
+      await dispatch(
+        createUserKanbanTask({ taskName: taskName, columnId: columnId })
+      ).unwrap();
+    } catch (err) {
+      console.error("Error during creating task:", err);
+    }
+  };
+  const handleUpdateTask = async (
+    taskId: string,
+    taskName: string,
+    order: number,
+    columnId: string
+  ): Promise<TaskKanbanModel> => {
+    try {
+      const updatedTask = await dispatch(
+        updateUserKanbanTask({
+          taskId,
+          taskName,
+          order,
+          columnId,
+        })
+      ).unwrap();
+      return updatedTask;
+    } catch (err) {
+      console.error("Error during updating task:", err);
+      throw err;
+    }
+  };
+  const handleDeleteTask = async (id: string) => {
+    try {
+      await dispatch(deleteUserKanbanTask(id)).unwrap();
+    } catch (err) {
+      console.error("Error during creating task:", err);
+    }
+  };
+
   const handleAddColumn = async () => {
     try {
       const lastPosition =
         columns.length > 0 ? columns[columns.length - 1].position : 0;
       await dispatch(
-        createUserKanbanColumns({
+        createUserKanbanColumn({
           name: "New column",
           position: lastPosition + 1,
         })
@@ -53,14 +96,33 @@ export const Board = () => {
       console.error("Error during creating column:", err);
     }
   };
-
-  const handleAddTask = async (taskName: string, columnId: string) => {
+  const handleUpdateColumn = async (
+    id: string,
+    columnName: string,
+    position: number
+  ): Promise<ColumnModel> => {
     try {
-      await dispatch(
-        createUserKanbanTask({ taskName: taskName, columnId: columnId })
+      const lastPosition =
+        columns.length > 0 ? columns[columns.length - 1].position : 0;
+      const updatedColumn = await dispatch(
+        updateUserKanbanColumn({
+          id: id,
+          columnName: columnName,
+          columnPosition: position,
+        })
       ).unwrap();
+      return updatedColumn;
     } catch (err) {
-      console.error("Error during creating task:", err);
+      console.error("Error during creating column:", err);
+      throw err;
+    }
+  };
+
+  const handleRemoveColumn = async (columnId: string) => {
+    try {
+      await dispatch(deleteUserKanbanColumn(columnId)).unwrap();
+    } catch (err) {
+      console.error("Error during deleting column:", err);
     }
   };
 
@@ -75,12 +137,15 @@ export const Board = () => {
           column={col}
           tasks={tasks.filter((task) => task.columnId === col.id)}
           onAddTask={handleAddTask}
+          onRemoveColumn={handleRemoveColumn}
+          onUpdateTask={handleUpdateTask}
+          onUpdateColumn={handleUpdateColumn}
+          onDeleteTask={handleDeleteTask}
         />
       ))}
       <button
         onClick={handleAddColumn}
-        className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded flex items-center justify-center h-fit"
-      >
+        className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded flex items-center justify-center h-fit">
         ➕ Add Board
       </button>
     </div>

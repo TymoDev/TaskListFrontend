@@ -4,8 +4,10 @@ import { TaskKanbanModel } from "../../Models/TaskKanbanModel";
 import {
   createKanbanTask,
   deleteKanbanTask,
+  updateKanbanTask,
   fetchKanbanTasks,
 } from "../../Requests/Task/Task/TaskKanbanRequestHttp";
+import { act } from "react";
 
 export const getUserKanbanTasks = createAsyncThunk(
   "tasks/getUserKanbanTasks",
@@ -16,8 +18,12 @@ export const createUserKanbanTask = createAsyncThunk(
   "tasks/createUserKanbanTasks",
   createKanbanTask
 );
+export const updateUserKanbanTask = createAsyncThunk(
+  "tasks/updateUserKanbanTasks",
+  updateKanbanTask
+);
 
-export const deleteUserKanbanTasks = createAsyncThunk(
+export const deleteUserKanbanTask = createAsyncThunk(
   "tasks/deteleUserKanbanTasks",
   deleteKanbanTask
 );
@@ -61,7 +67,19 @@ const kanbanTasksSlice = createSlice({
       }
     );
     builder.addCase(
-      deleteUserKanbanTasks.fulfilled,
+      updateUserKanbanTask.fulfilled,
+      (state, action: PayloadAction<TaskKanbanModel>) => {
+        const index = state.findIndex(
+          (todo) => todo.taskId === action.payload.taskId
+        );
+
+        state[index].order = action.payload.order;
+        state[index].columnId = action.payload.columnId;
+        state[index].taskName = action.payload.taskName;
+      }
+    );
+    builder.addCase(
+      deleteUserKanbanTask.fulfilled,
       (state, action: PayloadAction<{ id: string }>) => {
         const index = state.findIndex(
           (task) => task.taskId === action.payload.id

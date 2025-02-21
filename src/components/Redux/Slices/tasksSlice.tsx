@@ -1,17 +1,22 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Task } from "../../Models/TasksListModel";
-import { createTask, deleteTask, fetchTasks, updateTask } from "../../Requests/Task/Task/TaskListRequestHttp";
+import {
+  createTask,
+  deleteTask,
+  fetchTasks,
+  updateTask,
+} from "../../Requests/Task/Task/TaskListRequestHttp";
 
 export const getUserTasks = createAsyncThunk("tasks/getUserTasks", fetchTasks);
-export const createUserTasks = createAsyncThunk(
+export const createUserTask = createAsyncThunk(
   "tasks/createUserTasks",
   createTask
 );
-export const updateUserTasks = createAsyncThunk(
+export const updateUserTask = createAsyncThunk(
   "tasks/updateUserTasks",
   updateTask
 );
-export const deleteUserTasks = createAsyncThunk(
+export const deleteUserTask = createAsyncThunk(
   "tasks/deleteUserTasks",
   deleteTask
 );
@@ -44,7 +49,7 @@ const tasksSlice = createSlice({
       });
 
     builder.addCase(
-      createUserTasks.fulfilled,
+      createUserTask.fulfilled,
       (state, action: PayloadAction<Task>) => {
         const newState = [...state, action.payload];
         //console.log(JSON.stringify(state,null,2),JSON.stringify(action.payload,null,2));
@@ -52,7 +57,7 @@ const tasksSlice = createSlice({
       }
     );
     builder.addCase(
-      updateUserTasks.fulfilled,
+      updateUserTask.fulfilled,
       (state, action: PayloadAction<Task>) => {
         const index = state.findIndex((todo) => todo.id === action.payload.id);
         /* console.log({
@@ -65,7 +70,7 @@ const tasksSlice = createSlice({
       }
     );
     builder.addCase(
-      deleteUserTasks.fulfilled,
+      deleteUserTask.fulfilled,
       (state, action: PayloadAction<{ id: string }>) => {
         const index = state.findIndex((task) => task.id === action.payload.id);
         if (index !== -1) {
