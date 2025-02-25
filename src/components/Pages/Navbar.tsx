@@ -23,7 +23,7 @@ const Navbar = () => {
             Home
           </button>
           <button
-            onClick={() => navigate("/template")}
+            onClick={() => navigate("home/template/select")}
             className="hover:underline text-white">
             Choose template
           </button>

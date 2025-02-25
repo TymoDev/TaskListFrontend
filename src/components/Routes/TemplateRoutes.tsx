@@ -5,6 +5,7 @@ import SummaryContainer from "../Pages/Home/DefaultTaskList/TaskList/Sumary/Summ
 import Input from "../Pages/Home/DefaultTaskList/TaskList/Task/Input";
 import TasksContainer from "../Pages/Home/DefaultTaskList/TaskList/Task/TaskContainer";
 import { Board } from "../Pages/Home/DefaultTaskList/Kanban/Board";
+import { TemplateSelector } from "../Pages/Home/TemplatePage";
 
 const TemplateRoutes: React.FC = () => {
   return (
@@ -26,6 +27,7 @@ const TemplateRoutes: React.FC = () => {
         }
       />
       <Route path="/kanban" element={<Board />} />
+      <Route path="/select" element={<TemplateSelector />} />
     </Routes>
   );
 };
