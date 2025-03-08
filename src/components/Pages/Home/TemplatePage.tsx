@@ -13,13 +13,13 @@ const templates: Template[] = [
     name: "Task List",
     description: "Organize your tasks in a simple list.",
     route: "/home/template/tasklist",
-    image: "", //add photo
+    image: "https://res.cloudinary.com/dgc6bvwem/image/upload/v1741459185/emggklfl2pktmytpn5zg.png",
   },
   {
     name: "Task Kanban",
     description: "Visualize your tasks using a Kanban board.",
     route: "/home/template/kanban",
-    image: "", //add photo
+    image: "https://res.cloudinary.com/dgc6bvwem/image/upload/v1741459215/tdvniipnvhroejsck6vm.png",
   },
 ];
 

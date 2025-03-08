@@ -1,6 +1,7 @@
 export interface UserProfile {
   id: string;
   username:string,
+  profileImageUrl:string,
   gender:string,
   birthday:string,
   location:string
