@@ -5,28 +5,29 @@ import { getUserProfile } from "../../Redux/Slices/userProfileSlice";
 import { getUser } from "../../Redux/Slices/userSlice";
 import { AppDispatch, RootState } from "../../Redux/store";
 
-export const useFetchUserAndProfile = () => {
-    const { user } = useSelector((state: RootState) => state.user);
-    const { userProfile } = useSelector((state: RootState) => state.userProfile);
-    const dispatch = useDispatch<AppDispatch>();
-    const navigate = useNavigate();
-  
-    useEffect(() => {
-      const fetchUserAndProfile = async () => {
-        try {
-          const fetchedUser = await dispatch(getUser()).unwrap();
-          if (!userProfile) {
-            await dispatch(getUserProfile(fetchedUser.id)).unwrap();
-          }
-        } catch {
-          navigate("/auth/login");
+export const userFetchUserAndProfile = () => {
+  const { user } = useSelector((state: RootState) => state.user);
+  const { userProfile } = useSelector((state: RootState) => state.userProfile);
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchUserAndProfile = async () => {
+      try {
+        const fetchedUser = await dispatch(getUser()).unwrap();
+        if (!userProfile) {
+          await dispatch(getUserProfile(fetchedUser.id)).unwrap();
         }
-      };
-  
-      if (!user || !userProfile) {
-        fetchUserAndProfile();
+      } catch {
+        navigate("/auth/login");
       }
-    }, [dispatch, navigate, user, userProfile]);
-  
-    return { user, userProfile };
-  };
+    };
+
+    if (!user || !userProfile) {
+      fetchUserAndProfile();
+    }
+  }, [dispatch, navigate, user, userProfile]);
+
+  return { user, userProfile };
+};
+

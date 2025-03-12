@@ -56,7 +56,7 @@ const Navbar = () => {
                   View Profile
                 </button>
                 <button
-                  onClick={() => handleNavigate("/profile/settings")}
+                  onClick={() => handleNavigate("/profile/settings/basicInfo")}
                   className="block px-4 py-2 hover:bg-gray-100 w-full text-left">
                   Account Settings
                 </button>

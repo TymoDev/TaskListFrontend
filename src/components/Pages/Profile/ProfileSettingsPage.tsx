@@ -1,30 +1,72 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { User } from "../../Models/UserModel";
-import type { UserProfile } from "../../Models/UserProfileModel";
+import type { UserProfile, UserProfileUpdateImage } from "../../Models/UserProfileModel";
+import { useDispatch } from "react-redux";
+import { updateProfileImage } from "../../Redux/Slices/userProfileSlice";
+import { AppDispatch } from "../../Redux/store";
 
-const ProfileSettings = ({ userProfile }: { user: User; userProfile: UserProfile }) => {
+const ProfileSettings = ({
+  userProfile,
+}: {
+  user: User;
+  userProfile: UserProfile;
+}) => {
   const navigate = useNavigate();
+  const [isUploading, setIsUploading] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleNavigate = (path: string) => {
     navigate(path);
+  };
+
+  const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+
+    try {
+      await dispatch(updateProfileImage(file));
+    } catch (error) {
+      console.error("Image upload failed:", error);
+      alert("Failed to update image. Please try again.");
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
       <header className="bg-gradient-to-r from-gray-800 to-gray-900 text-white py-6 px-10 shadow-lg">
         <div className="flex items-center max-w-7xl mx-auto">
-          <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-600 flex-shrink-0">
-            {userProfile.profileImageUrl ? (
-              <img
-                src={userProfile.profileImageUrl}
-                alt="User Avatar"
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">
-                No Image
+          <div className="relative w-16 h-16 rounded-full overflow-hidden bg-gray-600 flex-shrink-0 group cursor-pointer">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              id="avatarInput"
+              onChange={handleImageChange}
+              disabled={isUploading}
+            />
+            <label htmlFor="avatarInput" className="w-full h-full block">
+              {userProfile.profileImageUrl ? (
+                <img
+                  src={userProfile.profileImageUrl}
+                  alt="User Avatar"
+                  className={`w-full h-full object-cover transition-opacity ${
+                    isUploading ? "opacity-50" : ""
+                  }`}
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">
+                  No Image
+                </div>
+              )}
+              <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <span className="text-white text-xs">{isUploading ? "Uploading..." : "Change photo"}</span>
               </div>
-            )}
+            </label>
           </div>
           <div className="ml-6">
             <h1 className="text-3xl font-bold">{userProfile.username}</h1>

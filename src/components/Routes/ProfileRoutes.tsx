@@ -3,10 +3,10 @@ import ProfileHeader from "../Pages/Profile/ProfileHeader";
 import { Route, Routes } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
-import { useFetchUserAndProfile } from "../Hooks/User/UserProfileGetHook";
+import { userFetchUserAndProfile } from "../Hooks/User/UserProfileGetHook";
 
 const ProfileRoutes: React.FC = () => {
-  const { user, userProfile } = useFetchUserAndProfile();
+  const { user, userProfile } = userFetchUserAndProfile();
   const { errorUser } = useSelector((state: RootState) => state.user);
 
   const { errorUserProfile } = useSelector(
@@ -25,7 +25,10 @@ const ProfileRoutes: React.FC = () => {
         path="/"
         element={<ProfileHeader user={user} userProfile={userProfile} />}
       />
-      <Route path="/settings" element={<ProfileSettings user={user} userProfile={userProfile} />} />
+      <Route
+        path="/settings/basicInfo"
+        element={<ProfileSettings user={user} userProfile={userProfile} />}
+      />
     </Routes>
   );
 };
